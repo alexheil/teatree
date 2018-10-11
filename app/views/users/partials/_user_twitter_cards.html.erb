@@ -1,0 +1,13 @@
+<% content_for :user_og_header do %>
+  <meta property="og:url" content="<%= user_url(@user) %>" />
+  <meta property="og:title" content="<%= @user.profile.display_name.presence || @user.username %>" />
+  <meta property="og:description" content="<%= truncate(@user.profile.biography, length: 140) %>" />
+  <meta property="og:image" content="<%= @user.profile.image_url(:original) %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @user.profile.display_name.presence || @user.username %>" />
+  <meta name="twitter:description" content="<%= truncate(@user.profile.biography, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @user.profile.image_url(:original) %>" />
+  <meta name="twitter:url" content="<%= user_url(@user) %>" />
+  <meta name="twitter:site" content="@teatreetv" />
+  <meta name="twitter:creator" content="<%= @user.profile.twitter_handle %>" />
+<% end %>

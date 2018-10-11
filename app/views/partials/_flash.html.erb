@@ -1,0 +1,11 @@
+<div class="flash">
+  <% flash.each do |message_type, message| %>
+    <% if message_type != "timedout" %>
+      <div class="alert-<%= message_type %>">
+        <div class="alert">
+          <%= message %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

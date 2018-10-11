@@ -1,0 +1,110 @@
+<%= provide(:title, "Become A Member") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="padding-vertical-large">
+
+      <div class="mid-container">
+        <div class="padding-bottom">
+          <img class="thumbnail-image" src="https://i.imgur.com/fmALL2b.jpg">
+        </div>
+        <div class="mid-text padding-bottom">
+          Become a member
+        </div>
+      </div>
+    </div>
+
+    <div class="flex padding-vertical-large">
+      <aside class="sidebar">
+        <div class="bold padding-bottom">
+          STEPS:
+        </div>
+        <ul>
+          <% if user_signed_in? %>
+            <li class="active-sidebar-tab"><span class="no-cursor">Register</span></li>
+            <% if @customer.default_source.blank? %>
+              <li class="inactive-sidebar-tab"><%= link_to "Payment Source", edit_user_source_path(current_user) %></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Membership</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
+            <% else %>
+              <li class="active-sidebar-tab"><span class="no-cursor">Payment Source</span></li>
+              <% if current_user.membership.nil? %>
+                <li class="inactive-sidebar-tab"><%= link_to "Membership", new_user_membership_path(current_user) %></li>
+                <li class="inactive-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
+                <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
+                <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
+                <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
+              <% else %>
+                <li class="active-sidebar-tab"><span class="no-cursor">Membership</span></li>
+                <li class="active-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
+                <% if current_user.merchant.nil? %>
+                  <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 1", new_user_merchant_path(current_user) %></li>
+                  <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
+                  <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
+                <% else %>
+                  <li class="active-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
+                  <% if @merchant.external_accounts.any? %>
+                    <li class="active-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
+                    <% if current_user.plan.present? %>
+                      <li class="active-sidebar-tab"><span class="no-cursor">Plan</span></li>
+                    <% else %>
+                      <li class="inactive-sidebar-tab"><%= link_to "Plan", new_user_plan_path(current_user) %></li>
+                    <% end %>
+                  <% else %>
+                    <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 2", edit_user_merchant_path(current_user) %></li>
+                    <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+            <li class="inactive-sidebar-tab"><%= link_to "Register", register_path %></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Payment Source</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Membership</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
+              <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
+          <% end %>
+
+        </ul>
+      </aside>
+
+      <main class="content">
+        
+        <div class="mid-text padding-bottom-large center">
+          What is a membership?
+        </div>
+
+        <div>Prevents spam - a lot of videos on the internet are dumb as hell. This makes sure only content creators who are serious are uploading videos</div>
+
+        <div>Allows fans to subscribe to you - fans can subscribe to your premium content for just 2$ a month. </div>
+
+        <div>Allows you to upload videos - what’s a video hosting site without videos</div>
+
+        <div>Allows us to cover the cost of hosting - video hosting isn’t cheap. It costs around .02$ per GB of image and video. That doesn’t seem like a lot, but it adds up. A 4 minute video is around 1 GB. If you upload 30 4 minute videos a month it costs 1.80 per month.</div>
+
+        <div>There are a couple of steps. First you have to add a card on file. Next you have to become a member. This is where you sunscribe to the site and unlock the ability to upload videos. Then you need to become a merchant in order to accept payments.</div>
+
+        <div>
+          <% if user_signed_in? %>
+            <% if @customer.default_source.blank? %>
+              <%= link_to "Add a card", edit_user_source_path(current_user) %>
+            <% elsif current_user.membership.nil? %>
+              <%= link_to "Become a member", new_user_membership_path(current_user) %>
+            <% elsif current_user.merchant.nil? %>
+              <%= link_to "Become a merchant", new_user_merchant_path(current_user) %>
+            <% end %>
+          <% end %>
+
+          <div>This is where button to add card on file OR subscribe via form or create a merchant account. if they have a merchant account this page doesnt appear.</div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+</div>

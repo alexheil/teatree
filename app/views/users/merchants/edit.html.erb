@@ -1,0 +1,148 @@
+<%= provide(:title, "Set Up A Merchant Account, Part 2") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Set up a merchant account, part 2
+      </div>
+
+      <%= form_for(@merchant, url: user_merchant_path) do |f| %>
+        <%= f.hidden_field :user_id %>
+        <%= render 'partials/errors/merchant_errors' %>
+          
+        <div class="form-border">
+          <div class="flex">
+            <div class="field-two-column">
+              <%= f.label :first_name %>
+              <%= f.text_field :first_name, class: "text-field" %>
+            </div>
+            <div class="field-two-column">
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, class: "text-field" %>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="field-three-column-top">
+              <%= f.label :month %> <span class="dark mini-text">(MM)</span>
+              <%= f.text_field :month, class: "text-field" %>
+            </div>
+            <div class="field-three-column-top">
+              <%= f.label :day %> <span class="dark mini-text">(DD)</span>
+              <%= f.text_field :day, class: "text-field" %>
+            </div>
+            <div class="field-three-column-top">
+              <%= f.label :year %> <span class="dark mini-text">(YYYY)</span>
+              <%= f.text_field :year, class: "text-field" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="padding-vertical dark center">
+          None of the information below is saved in Tea Tree's database. Tea Tree will not have access to this information after this moment via this website.
+        </div>
+
+        <div class="form-border">
+          <% if @merchant.country == 'US' %>
+            <div class="field">
+              <%= f.label :line1, "Street address" %>
+              <%= f.text_field :line1, required: true, class: "text-field" %>
+            </div>
+            <div class="flex">
+              <div class="field-three-column">
+                <%= f.label :city %>
+                <%= f.text_field :city, required: true, class: "text-field" %>
+              </div>
+              <div class="field-three-column">
+                <%= f.label :state %>
+                <%= f.text_field :state, required: true, class: "text-field" %>
+              </div>
+              <div class="field-three-column">
+                <%= f.label :postal_code %>
+                <%= f.text_field :postal_code, required: true, class: "text-field" %>
+              </div>
+            </div>
+          <% else %>
+            <div class="field">
+              <%= f.label :line1, "Street address" %>
+              <%= f.text_field :line1, required: true, class: "text-field" %>
+            </div>
+            <div class="flex">
+              <div class="field-two-column">
+                <%= f.label :city %>
+                <%= f.text_field :city, required: true, class: "text-field" %>
+              </div>
+              <div class="field-two-column">
+                <%= f.label :postal_code %>
+                <%= f.text_field :postal_code, required: true, class: "text-field" %>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="flex">
+            <div class="field-two-column">
+              <%= f.label :country %>
+              <%= f.select :country, options_for_select(country) %>
+            </div>
+            <div class="field-two-column">
+              <%= f.label :currency %>
+              <%= f.select :currency, options_for_select(currency) %>
+            </div>
+          </div>
+
+          <% if @merchant.country == 'US' %>
+
+            <div class="flex">
+              <div class="field-two-column-top">
+                <%= f.label :personal_id_number, "Full SS or business tax ID" %>
+                <%= f.text_field :personal_id_number, required: true, class: "text-field" %>
+              </div>
+              <div class="field-two-column-top">
+                <%= f.label :ssn_last_4, "Last 4 of SS" %>
+                <%= f.text_field :ssn_last_4, required: true, class: "text-field" %>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
+
+        <div class="mid-text padding-vertical-large center">
+          Where will your money go?
+        </div>
+
+        <div class="padding-bottom center dark">
+          <% if @account.external_accounts.any? %>
+            You have a bank account on file. Only fill this out if you want to create a new default bank account to transfer funds to. 
+          <% else %>
+            You do not have a bank account of file. You will not receive any payments until you add a bank account on file. 
+          <% end %>This is not saved to Tea Tree's database.
+        </div>
+
+        <div class="form-border">
+          <% if @merchant.country == 'US' %>
+            <div class="flex">
+              <div class="field-two-column-bottom">
+                <%= f.label :bank_account_number %>
+                <%= f.text_field :bank_account_number, required: true, class: "text-field" %>
+              </div>
+              <div class="field-two-column-bottom">
+                <%= f.label :bank_routing_number %>
+                <%= f.text_field :bank_routing_number, required: true, class: "text-field" %>
+              </div>
+            </div>
+          <% else %>
+            <div class="field">
+              <%= f.label :bank_account_number %>
+              <%= f.text_field :bank_account_number, required: true, class: "text-field" %>
+            </div>
+          <% end %>
+
+          <%= f.submit "Update merchant account", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        </div>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>

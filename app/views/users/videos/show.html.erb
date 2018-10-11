@@ -1,0 +1,210 @@
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("'s Videos")) %>
+
+<%= render 'users/partials/video_twitter_cards' %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <div class="padding-vertical-large">
+
+      <% if @video.free? %>
+        <div class="flex">
+          <div class="eighty-three">
+            <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+              <source src="<%= @video.video_url %>">
+              Your browser does not support this video.
+            </video>
+          </div>
+
+          <div class="thirteen">
+            <div class="blackbox">
+              <%= render 'partials/ad_trash' %>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <% if user_signed_in? && (current_user.subscribing?(@user)) || (current_user == @user) %>
+          <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+            <source src="<%= @video.video_url %>">
+            Your browser does not support this video.
+          </video>
+        <% else %>
+          <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+            <source src="">
+            Your browser does not support this video.
+          </video>
+          <div class="padding-top">
+            This is a premium video. You must be subscribed to <%= link_to @user.profile.display_name.presence || @user.username, user_path(@user) %> to view this content.
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if current_user == @user %>
+
+        <div class="padding-top">
+          <div class="flex">
+            <div class="forty-eight">
+              <%= link_to edit_user_video_path(@user, @video) do %>
+                <div class="fake-button">
+                  Edit
+                </div>
+              <% end %>
+            </div>
+
+            <div class="forty-eight">
+              <%= link_to(user_video_path(@user, @video), data: { confirm: "Are you sure? This cannot be undone. Ever..." }, method: :delete) do %>
+                <div class="remove-button">
+                  Remove
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+
+    <div class="flex">
+      <div class="eighty-one form-border">
+        <div class="mid-text padding-bottom-mini">
+          <%= @video.title %>
+        </div>
+        <div class="mini-text padding-bottom-mini">
+          <%= link_to @user.profile.display_name.presence || @user.username, user_path(@user) %> posted <%= remove_unwanted_words time_ago_in_words(@video.created_at) %> ago (<%= @video.created_at.strftime("%m.%d.%Y") %>)
+        </div>
+        <div>
+          <%= truncate(@video.description, length: 140) %>
+          <span id="expand-description">
+            expand
+          </span>
+        </div>
+
+      </div>
+
+      <div class="thirteen form-border">
+        <div class="padding-bottom-mini">
+          <%= pluralize(@video.view_count, "view") %>
+        </div>
+        <div id="share-button-click" class="fake-button-dark">
+          Share
+        </div>
+        
+        <div id="share-container">
+          <div class="flex">
+            <div class="forty-eight padding-top-mini">
+              <a onclick="javascript:window.open('https://www.facebook.com/sharer/sharer.php?u=<%= user_video_url(@user, @video) %>', '_blank', 'width=800, height=500, top=200, left=300');void(0)" class="facebook-button">F</a>
+            </div>
+            <div class="forty-eight padding-top-mini">
+              <a onclick="javascript:window.open('http://twitter.com/share?text=<%= @video.title %> - &amp;url=<%= user_video_url(@user, @video) %>', '_blank', 'width=800, height=500, top=200, left=300');void(0)" class="twitter-button">T</a>
+            </div>
+            <div class="forty-eight padding-top-mini">
+              <a onclick="javascript:window.open('http://www.tumblr.com/share/link?url=<%= user_video_url(@user, @video) %>&amp;title=<%= @video.title %>', '_blank', 'width=800, height=500, top=200, left=300');void(0)" class="tumblr-button">T</a>
+            </div>
+            <div class="forty-eight padding-top-mini">
+              <a onclick="javascript:window.open('http://reddit.com/submit?url=<%= user_video_url(@user, @video) %>&amp;title=<%= @video.title %>', '_blank', 'width=800, height=500, top=200, left=300');void(0)" class="reddit-button">R</a>
+            </div>
+            <div class="forty-eight padding-top-mini">
+              <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());" class="pinterest-button" >P</a>
+            </div>
+            <div class="forty-eight padding-top-mini">
+              <a onclick="javascript:window.open('mailto:?Subject=<%= @video.title %>&amp;Body=<%= @video.title %> <%= user_video_url(@user, @video) %>', '_blank');void(0)" class="email-button">E</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex padding-vertical-large">
+      <aside class="sidebar">
+        <ul>
+          <li id="first-tab-click" class="active-sidebar-tab">Comments</li>
+          <li id="second-tab-click" class="inactive-sidebar-tab">More videos</li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <div id="first-tab">
+          <div class="padding-bottom-large">
+            <% if user_signed_in? %>
+              <% if current_user.subscribing?(@user) || current_user == @user %>
+                <%= form_for(@comment, url: user_video_comments_path(@user, @video)) do |f| %>
+                  <div class="field">
+                    <%= f.label :content, "Leave a comment" %> <span class="mini-text dark">(Posting as <%= current_user.profile.display_name.presence || current_user.username %>)</span>
+                    <%= f.text_area :content, class: "text-area" %>
+                  </div>
+                  <%= f.submit "Create comment", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+                <% end %>
+              <% else %>
+                You must be subscribed to <%= @user.profile.display_name.presence || @user.username %> to leave a comment on this video.
+              <% end %>
+            <% else %>
+              You need to <%= link_to "register", register_path %> or <%= link_to "sign in", sign_in_path %> to comment on <%= @user.profile.display_name.presence || @user.username %>'s video.
+            <% end %>
+          </div>
+
+
+          <div class="padding-bottom">
+            <% @video.comments.each do |comment| %>
+              <div class="mini-text">
+                <%= link_to comment.user.profile.display_name.presence || comment.user.username %> <span class="dark">posted <%= time_ago_in_words(comment.created_at) %></span>
+              </div>
+              <div class="padding-bottom">
+                <%= comment.content %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div id="second-tab">
+          <div class="padding-bottom">
+
+
+            <% if @user.videos.any? %>
+              <div class="flex">
+                <% @user.videos.each do |video| %>
+                  <div class="twenty-four border">
+
+                    <%= link_to user_video_path(@user, video) do %>
+                      <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                    <% end %>
+
+                    <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                      <div class="video-title">
+                        <%= link_to video.title, user_video_path(@user, video) %>
+                      </div>
+
+                      <div class="mini-text">
+                        <div class="flex">
+                          <div class="forty-eight">
+                            <%= @user.profile.display_name.presence || @user.username %>
+                          </div>
+                          <div class="forty-eight right">
+                            <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
+            <% end %>
+
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+</div>
+
+<div id="description-container">
+  <div class="popup-form-inside">
+    <div class="best">
+      <%= @video.description %>
+    </div>
+  </div>
+</div>

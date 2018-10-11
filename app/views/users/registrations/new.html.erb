@@ -1,0 +1,56 @@
+<%= provide(:title, "Register") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Register
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="field">
+            <%= f.label :username %>
+            <%= f.text_field :username, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %></span>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <div class="">
+            <%= f.submit "Register", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="padding-top center link-light">
+        <%= link_to "But I already have an account.", sign_in_path %>
+      </div>
+
+      <div class="padding-top-large">
+        <div class="padding-bottom-large center mid-text">
+          Why join Tea Tree?
+        </div>
+        <div class="form-border">
+          <div class="padding-bottom">Lurker? Perfect! Me too. You get to watch as many free videos as you want whenever you want.</div>
+          <div class="padding-vertical">Creator? Upload sweet, quality content for all the awesome viewers out there. You can even upload premium content!</div>
+          <div class="padding-vertical">Lurker and creator? No problem at all. You can upload videos and still subscribe to whoever you want.</div>
+          <div class="padding-top">Subscribe to all of your favorite content creators, who will choose whether a subscription is free or premium.</div>
+          <div>All users keep 85 percent of their earnings. That's right! Tea Tree only keeps 15 percent as a platform fee, which means you keep the money you earn.</div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

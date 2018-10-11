@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.5em;
+        font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-weight: 400;
+        background: #EEEEEE;
+        color: #211725;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: #5f92ff;
+        text-decoration: none;
+        &:hover {
+          color: #B23B59;
+        }
+      }
+      .wrapper {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+      }
+      .container {
+        width: 96%;
+        margin: 0 auto;
+      }
+      .mid-text {
+        font-size: 2em;
+        line-height: 1.25em;
+      }
+      .padding-vertical-large {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+      }
+      .padding-vertical {
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+      }
+      .padding-top {
+        padding-top: 1vh;
+      }
+      .padding-bottom {
+        padding-bottom: 1vh;
+      }
+      .padding-bottom-large {
+        padding-bottom: 2vh;
+      }
+      .mid-container {
+        width: 70%;
+        margin: 0 auto;
+      }
+      .thumbnail-image {
+        height: 31vh;
+        width: 100%;
+        border-radius: 6px;
+        object-fit: cover;
+        -webkit-backface-visibility: hidden;
+        display: block;
+      }
+      .form-container {
+        width: 40%;
+        margin: 0 auto;
+      }
+      .form-border {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        padding: 1vh 1vw;
+        background: #FFFFFF;
+      }
+      .center {
+        text-align: center;
+      }
+      .header-container {
+        width: 100%;
+        margin: 0 auto;
+        background: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        a {
+          color: #211725;
+        }
+      }
+      .nav {
+        display: flex;
+        justify-content: space-between;
+      }
+      .nav .site-title {
+        display: inline-block;
+        width: 24%;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+
+      .full-footer-container {
+        width: 100%;
+        clear: both;
+        background: #ffffff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+      }
+      .footer {
+        font-size: .75em;
+        text-transform: uppercase;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+      }
+      .footer-disclaimer {
+        font-size: .75em;
+        text-align: center;
+        color: #211725;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="wrapper header-container">
+      <div class="container">
+        <nav class="nav padding-vertical-large">
+          <div class="site-title">
+            <%= link_to 'Bloo Tee Vee', root_url %>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <%= yield %>
+
+    <footer class="full-footer-container wrapper">
+      <div class="container padding-top">
+        <nav class="footer">
+          <span><%= link_to "Tea Tree", root_url, class: "nav-links" %></span>
+        </nav>
+        <div class="footer-disclaimer">
+          <%= link_to "Unsubscribe", edit_user_registration_url(@user) %>
+        </div>
+        <div class="footer-disclaimer">
+          Tea Tree. 769 Columbus Pkwy, Buffalo, NY 14213
+        </div>
+        <div class="footer-disclaimer">
+          Built in Buffalo, New York, United States of America, Earth.
+        </div>
+      </div>
+    </footer>
+
+
+  </body>
+</html>

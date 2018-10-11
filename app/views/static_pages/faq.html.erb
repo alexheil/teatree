@@ -1,0 +1,95 @@
+<%= provide(:title, "FAQ") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="padding-vertical-large">
+      <div class="mid-container">
+
+        <div class="category-image-container link-color">
+          <img class="thumbnail-image" src="https://i.imgur.com/wQF1QSE.jpg">
+          <div class="category-image-centered mid-text">
+            Frequently asked questions
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flex padding-bottom-large">
+      <aside class="sidebar">
+        <ul>
+          <li id="first-tab-click" class="active-sidebar-tab">General</li>
+          <li id="second-tab-click" class="inactive-sidebar-tab">Account</li>
+          <li id="third-tab-click" class="inactive-sidebar-tab">Purchases</li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        
+        <div id="first-tab">
+
+
+        </div>
+
+        <div id="second-tab">
+
+          <div class="padding-bottom mid-text">
+            Why can't I sign into my account?
+          </div>
+
+          <div class="padding-vertical">
+            Uh, oh. That's not good. Think of all the activity that's happening on your account while you waste your time reading this meaningless sentence when you could have just skipped to the next paragraph and figured it out by now. Ok, sorry.
+          </div>
+
+          <div class="padding-vertical">
+            I'm guessing you either used the wrong email address or you forgot your password. In the second case, you need to <%= link_to "reset your password", new_user_password_path if user_signed_in? %><%= "reset your password" if !user_signed_in? %>. Click the link and enter the email you that is associated with your account. Confirmation instructions will be sent to you in order to reset and change your password. Once you change your password be sure to tattoo it somewhere on your body for quick reference.
+          </div>
+
+          <div class="padding-bottom mid-text">
+            How do I delete my account?
+          </div>
+
+          <div class="padding-vertical">
+            First of all, I'm very sad to see that you want to delete your account. Deeply saddened... alright, I'm over it.
+          </div>
+
+          <div class="padding-vertical">
+            To delete your account, go to your <%= link_to "settings", edit_user_registration_path if user_signed_in? %><%= "settings" if !user_signed_in? %> and locate the delete button on the bottom of the page. Click it and you'll be prompted to delete your account. Beware, this is permanent and wipes you clean out of the database. Your courses, videos, subscriptions, nor purchases will be available. No one, not even me, can get your account back.
+          </div>
+
+          <div class="padding-vertical">
+            Farewell, my friend.
+          </div>
+            
+        </div>
+
+        <div id="third-tab">
+
+          <div class="padding-bottom mid-text">
+            How much will I make?
+          </div>
+          
+
+          <div class="padding-bottom mid-text">
+            Why do you use Stripe?
+          </div>
+
+          <div class="padding-vertical">
+            <a href="https://stripe.com/">Stripe</a> is an extremely secure way to take payments over the Internet via debit, credit, Apple Pay, or Andriod Pay. They handle everything from keeping your sensitive information secure to transfering money to our instructor's account.
+          </div>
+
+          <div class="padding-vertical">
+            I believe that Stripe is better than PayPal in terms of moving money and keeping accounts secure and active. Many PayPal accounts get shut down for basically no reason (including my own) and I refuse to let that happpen to any of my instructors.
+          </div>
+
+          <div class="padding-vertical">
+            We do not store your card information or any other payment information in our database at all. If Tea Tree ever gets hacked, you do not.
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+</div>

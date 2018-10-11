@@ -1,0 +1,26 @@
+<%= provide(:title, "Categories") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="padding-vertical-large">
+      
+      <div class="flex">
+
+        <% @categories.each do |category| %>
+          <div class="thirty-two border">
+            <div class="category-image-container link-color">
+              <%= link_to(category_path(category)) do %>
+                <img class="thumbnail-image-category" src="<%= category.image %>">
+                <div class="category-image-centered mid-text">
+                  <%= category.title.upcase %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+    </div>
+  </div>
+</div>

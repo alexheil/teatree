@@ -1,0 +1,86 @@
+<%= provide(:title, "Edit Your Video") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Edit <%= @video.title %>
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(@video, url: user_video_path(@user, @video)) do |f| %>
+          <span class="video_errors"><%= render 'partials/errors/video_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :category_id %>
+            <%= f.hidden_field :category_id %>
+            <%= f.collection_select(:category_id, Category.all, :id, :title) %>
+          </div>
+
+          <div class="field">
+            <%= f.label :subcategory_id %>
+            <%= f.hidden_field :subcategory_id %>
+            <%= f.collection_select(:subcategory_id, @video.category.subcategories, :id, :title) %>
+          </div>
+
+          <% if @video.image_data? %>
+            <div class="field">
+              <img class="thumbnail-image" src="<%= @video.image_url(:thumb) %>">
+            </div>
+            <div class="flex">
+              <div class="field-two-column center">
+                <label class="image-button" for="profile-image">Upload a thumbnail</label>
+                <%= f.hidden_field :image, value: @video.cached_image_data %>
+                <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+                <div class="file-name"></div>
+              </div>
+              <div class="field-two-column center">
+                <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+                <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+              </div>
+            </div>
+          <% else %>
+            <div class="padding-bottom-large">
+              <label class="image-button" for="profile-image">Upload a thumbnail</label>
+              <%= f.hidden_field :image, value: @video.cached_image_data %>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+              <div class="file-name"></div>
+            </div>
+          <% end %>
+          
+          <div class="field">
+            <label class="image-button" for="video-image">Upload a video</label>
+            <%= f.hidden_field :video, value: @video.cached_video_data %>
+            <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+            <div class="file-name"></div>
+          </div>
+
+          <div class="field">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: "text-area" %>
+          </div>
+
+          <div class="flex">
+            <div class="field-two-column-bottom">
+              <label class="active-paid-tab" id="free-tab" for="free">Free</label>
+              <span class="hidden"><%= f.radio_button(:policy_type, "free", id: "free") %></span>
+            </div>
+            <div class="field-two-column-bottom">
+              <label class="inactive-paid-tab" id="premium-tab" for="premium">Premium</label>
+              <span class="hidden"><%= f.radio_button(:policy_type, "premium", id: "premium") %></span>
+            </div>
+          </div>
+
+          <%= f.submit "Edit video", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

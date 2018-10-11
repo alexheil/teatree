@@ -1,0 +1,24 @@
+<%= provide(:title, "Edit Your Membership") %>
+
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <% if @user.membership.present? %>
+        <div class="mid-text padding-bottom-large center">
+          Want to cancel your membership?
+        </div>
+
+        <div class="padding-bottom dark center">
+          You will not be able to upload videos anymore, but your videos will remain where they are. You can and will continue to recieve subscriptions.
+        </div>
+
+        <div class="form-border">
+          <%= button_to "Delete my membership", user_membership_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<% content_for :video_og_header do %>
+  <meta property="og:url" content="<%= user_video_url(@user, @video) %>" />
+  <meta property="og:title" content="<%= @video.title %>" />
+  <meta property="og:description" content="<%= truncate(@video.description, length: 140) %>" />
+  <meta property="og:image" content="<%= @video.image_url(:original) %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @video.title %>" />
+  <meta name="twitter:description" content="<%= truncate(@video.description, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @video.image_url(:original) %>" />
+  <meta name="twitter:url" content="<%= user_video_url(@user, @video) %>" />
+  <meta name="twitter:site" content="@teatreetv" />
+  <meta name="twitter:creator" content="<%= @user.profile.twitter_handle %>" />
+<% end %>

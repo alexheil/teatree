@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <div class="container">
+
+    <div class="padding-vertical-large">
+      <div class="mid-container">
+
+        <img class="thumbnail-image" src="https://i.imgur.com/F7UHtzn.jpg">
+
+      </div>
+    </div>
+
+    <div class="padding-bottom-large">
+
+      <div class="center padding-bottom-large mid-text">
+        You're a new subscriber on Tea Tree!
+      </div>
+
+      <div class="form-container form-border">
+
+        <div class="padding-bottom">
+          You've just subscribed to <%= @subscribed.profile.display_name.presence || @subscribed.username %>! How do you feel?
+        </div>
+
+        <div class="padding-vertical">
+          Just double making sure that we remind you that this is going to be <%= @subscription.amount %> per month.
+        </div>
+
+        <div class="padding-vertical">
+          Of course, you can cancel this at anytime.
+        </div>
+
+        <div class="padding-vertical">
+          Although, you now have access to all of <%= @subscribed.profile.display_name.presence || @subscribed.username %>'s videos, so I doubt you'd ever think about that!
+        </div>
+
+        <div class="padding-vertical">
+          And if that doesn't make you happy enough, I'll help you out - you're directly supporting all of <%= @subscribed.profile.display_name.presence || @subscribed.username %>'s creations!
+        </div>
+
+        <div class="padding-vertical">
+          But enough of all this stuff.
+        </div>
+
+        <div class="padding-top">
+          <%= link_to "It's time to go have fun with your new subscription.", user_url(@subscribed) %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

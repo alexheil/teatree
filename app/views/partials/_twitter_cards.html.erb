@@ -1,0 +1,19 @@
+<% if content_for?(:user_og_header) %>
+  <%= yield(:user_og_header) %>
+<% elsif content_for?(:video_og_header) %>
+  <%= yield(:video_og_header) %>
+<% elsif content_for?(:blog_og_header) %>
+  <%= yield(:blog_og_header) %>
+<% else %>
+  <meta property="og:url" content="https://www.teatree.tv" />
+  <meta property="og:title" content="Tea Tree" />
+  <meta property="og:description" content="Tea Tree" />
+  <meta property="og:image" content="https://i.imgur.com/qVxmEab.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Tea Tree" />
+  <meta name="twitter:description" content="Tea Tree" />
+  <meta name="twitter:image" content="https://i.imgur.com/qVxmEab.jpg" />
+  <meta name="twitter:url" content="https://www.teatree.tv" />
+  <meta name="twitter:site" content="@teatreetv" />
+  <meta name="twitter:creator" content="@teatreetv" />
+<% end %>

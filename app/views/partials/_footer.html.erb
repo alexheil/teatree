@@ -1,0 +1,23 @@
+<footer class="full-footer-container wrapper">
+  <div class="container padding-top">
+    <nav class="footer">
+      <span><%= link_to "Tea Tree", root_url, class: "nav-links" %></span>
+      <ul>
+        <li><%= link_to "Updates", updates_path, class: "nav-links" %></li>
+        <li><%= link_to "FAQ", faq_path, class: "nav-links" %></li>
+        <li><%= link_to "About", about_path, class: "nav-links" %></li>
+        <li><%= link_to "Privacy", privacy_path, class: "nav-links" %></li>
+        <li><%= link_to "Terms", terms_path, class: "nav-links" %></li>
+        <% if user_signed_in? %>
+        <li><%= link_to "Sign out", sign_out_path, class: "nav-links" %></li>
+        <% else %>
+          <li><%= link_to "Sign in", sign_in_path, class: "nav-links" %></li>
+        <li><%= link_to "register", register_path, class: "nav-links" %></li>
+        <% end %>
+      </ul>
+    </nav>
+    <div class="footer-disclaimer">
+      Built in Buffalo, New York, United States of America, Earth.
+    </div>
+  </div>
+</footer>

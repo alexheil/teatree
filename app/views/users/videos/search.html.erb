@@ -1,0 +1,42 @@
+<%= provide(:title, "Search Results") %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <div class="flex padding-vertical-large">
+      <% if @videos.any? %>
+        <div class="flex form-border">
+          <% @videos.each do |video| %>
+            <div class="twenty-four border">
+
+              <%= link_to user_video_path(video.user, video) do %>
+                <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+              <% end %>
+
+              <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                <div class="video-title">
+                  <%= link_to video.title, user_video_path(video.user, video) %>
+                </div>
+
+                <div class="mini-text">
+                  <div class="flex">
+                    <div class="forty-eight">
+                      <%= link_to video.user.profile.display_name.presence || video.user.username, user_path(video.user), class: "black-link" %>
+                    </div>
+                    <div class="forty-eight right">
+                      <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        There are no videos... yet.
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<%= provide(:title, "Edit Category") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Edit category
+      </div>
+
+      <div class="padding-bottom">
+        <%= form_for(@category, url: category_path) do |f| %>
+          <%= render 'partials/errors/category_errors' %>
+          <div class="field">
+            <%= f.text_field :title, placeholder: "Title", class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.text_field :image, placeholder: "Image", class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.text_area :description, placeholder: "Description", class: "text-area" %>
+          </div>
+          <div class="actions">
+            <%= f.submit "Edit category", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

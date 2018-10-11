@@ -1,0 +1,42 @@
+<%= provide(:title, "Sign In") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Sign in
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            <%= f.label :login, "Username or email" %>
+            <%= f.text_field :login, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <span class="link-light"><%= link_to "I forgot my password.", new_user_password_path, class: "mini-text" %></span>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+
+          <div class="">
+            <%= f.submit "Sign in", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="padding-top center link-light">
+        <%= link_to "But I don't have an account yet.", register_path %>
+      </div>
+
+    </div>
+  </div>
+</div>

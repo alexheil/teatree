@@ -1,0 +1,35 @@
+<%= provide(:title, sanitize(@subcategory.title) + " " + sanitize(@category.title)) %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="padding-vertical-large">
+      
+      <div class="mid-container padding-bottom-large border-bottom">
+        <div class="padding-bottom">
+          <img class="thumbnail-image" src="<%= @subcategory.image %>">
+        </div>
+        <div class="mid-text padding-bottom">
+          <%= @subcategory.title %> - <%= @category.title %>
+        </div>
+        <div>
+          <%= @subcategory.description %>
+        </div>
+      </div>
+      
+       <div class="flex padding-vertical-large">
+        <aside class="sidebar">
+          <ul>
+            <% @subcategories.each do |subcategory| %>
+              <li class="inactive-sidebar-tab"><%= link_to subcategory.title, category_subcategory_path(@category, subcategory) %></li>
+            <% end %>
+          </ul>
+        </aside>
+
+        <main class="content">
+          <%= render 'categories/partials/videos' %>
+        </main>
+      </div>
+
+    </div>
+  </div>
+</div>

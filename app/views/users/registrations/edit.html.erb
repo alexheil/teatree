@@ -1,0 +1,101 @@
+<%= provide(:title, "Your Settings") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Settings
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+
+        <div class="form-border">
+          <div class="field">
+            <%= f.label :username %><span class="dark mini-text"> This will also change your URL.</span>
+            <%= f.text_field :username, class: "text-field" %>
+          </div>
+          <div class="margin-top">
+            <%= f.label :email %>
+            <%= f.email_field :email, autocomplete: "email", class: "text-field" %>
+          </div>
+        </div>
+
+        <div class="padding-vertical-large center mid-text">
+          Receive emails for:
+        </div>
+
+        <div class="form-border">
+          <div class="flex">
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="first-email-tab" for="first-email-inactive">Subscriptions</label>
+              <span class="hidden"><%= f.check_box :subscription_email, id: "first-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="second-email-tab" for="second-email-inactive">Comments</label>
+              <span class="hidden"><%= f.check_box :comment_email, id: "second-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="third-email-tab" for="third-email-inactive">Messages</label>
+              <span class="hidden"><%= f.check_box :message_email, id: "third-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="fourth-email-tab" for="fourth-email-inactive">Suggestions</label>
+              <span class="hidden"><%= f.check_box :suggestion_email, id: "fourth-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="fifth-email-tab" for="fifth-email-inactive">New Videos</label>
+              <span class="hidden"><%= f.check_box :video_email, id: "fifth-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="sixth-email-tab" for="sixth-email-inactive">Updates</label>
+              <span class="hidden"><%= f.check_box :update_email, id: "sixth-email-inactive" %></span>
+            </div>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %> Leave blank if you don't want to change it</span>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :current_password %> <span class="dark mini-text">Your current password confirms your changes.</span>
+            <%= f.password_field :current_password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <div class="">
+            <%= f.submit "Update", class: "submit-button" %>
+          </div>
+        </div>
+      <% end %>
+
+       <div class="padding-vertical-large center mid-text">
+        Add a payment source?
+      </div>
+
+      <div class="padding-bottom dark center">
+        You can update your default payment method by adding a card.
+      </div>
+
+      <div class="form-border">
+        <div class="link-color">
+          <%= link_to "Add payment source", edit_user_source_path(@user), class: "fake-button" %>
+        </div>
+      </div>
+
+      <div class="padding-vertical-large center mid-text">
+        Want to delete your account?
+      </div>
+
+      <div class="padding-bottom dark center">
+        You will not be able to get your account back. You will not be able to access your videos or subscriptions. All video subscriptions will be terminated upon deleting your account. It is recommended to keep your account open to view subscriptions.
+      </div>
+
+      <div class="form-border">
+        <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
+      </div>
+
+    </div>
+  </div>
+</div>

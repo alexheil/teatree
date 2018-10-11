@@ -1,0 +1,35 @@
+<%= provide(:title, "Your Plan") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Create a plan
+      </div>
+
+      <div class="padding-bottom">
+        You currently do not have a plan. A plan allows users to subscribe to you for a monthly cost. This can be to access premium videos, or simply to support you if all of your videos are already free.
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(@plan, url: user_plan_path) do |f| %>
+          <div class="field">
+            <%= f.label :amount, "Amount per month" %>
+            <%= f.text_field :amount, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :currency %>
+            <%= f.select :currency, options_for_select(currency) %>
+          </div>
+          <%= f.submit "Create plan", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+      <div class="padding-top dark center">
+        Don't forget that Stripe, our secure payment processor, takes a fee of <i>2.9% plus 0.30 (USD)</i> from <i>each transaction</i>.
+      </div>
+
+    </div>
+  </div>
+</div>

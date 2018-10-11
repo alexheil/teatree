@@ -1,0 +1,62 @@
+<%= provide(:title, "Become A Member") %>
+
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Become a member of Tea Tree
+      </div>
+
+      <div class="form-border">
+        A membership to Tea Tree costs <span class="bold">$3.00 (USD) per month</span>.
+      </div>
+
+      <div class="mid-text padding-vertical-large center">
+        What do I get?
+      </div>
+
+      <div class="form-border">
+        <div class="padding-bottom">
+          <span class="bold">Uploading videos</span> - as a member you are entitled to upload as many videos as you want as long as you want, until you cancel your membership.
+        </div>
+
+        <div class="padding-bottom">
+          <span class="bold">Unlock subscriptions</span> - your fans are able to keep up with you for a cost or for free. You can have premium content for subscribers only or give away all of your centent for free and still allow subscriptions for support.
+        </div>
+
+        <div>
+          <span class="bold">You keep 85% of all fees collected</span> - if you choose to set your subscription at a cost, you will keep the majority of it (obviously). For example, your subscription cost is $5.00 (USD) per month, Stripe will take $0.30 (USD) plus 2.9 percent. That's $0.45 (USD), plus Tea Tree's $0.75 (USD), which is $1.20 (USD) total. That means you make $3.80 (USD) from each subscriber.
+        </div>
+      </div>
+
+      <div class="mid-text padding-vertical-large center">
+        Okay, so why does it cost money?
+      </div>
+
+      <div class="form-border">
+        <div class="padding-bottom">
+          <span class="bold">Prevents spam</span> - a lot of videos on the internet are very lame, only get a few views, and then die, but they still take up space in a database and cost Tea Tree money. This makes sure only content creators who are serious about their craft are uploading quality videos.
+        </div>
+
+        <div>
+          <span class="bold">Allows us to cover the cost of hosting</span> - video hosting isn’t cheap. It costs around $0.02 (USD) per GB of image and video. That doesn’t seem like a lot, but it adds up. A 4 minute video is around 1 GB. If you upload 30 4 minute videos a month it costs 1.80 per month. The monthly fee goes straight to this.
+        </div>
+        <span class="bold">We'll be using it for advertising</span> - obviously we only make money if you make money, so we're going to be putting every last penny into advertising to bring new subscribers to you. You'll benefit from this as much as we do!
+      </div>
+
+      <div class="padding-vertical dark center">
+        By clicking below you will be charged $3.00 (USD) per month until you cancel. You can cancel at any time. The card you have on file will be charged today.
+      </div>
+
+      <div class="form-border">
+        <%= form_for(@membership, url: user_membership_path(@user)) do |f| %>
+        <%= f.hidden_field :membership_type, :value => "basic" %>
+        <%= f.submit "Become a member", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

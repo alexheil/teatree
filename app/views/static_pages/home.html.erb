@@ -1,0 +1,137 @@
+<div class="wrapper">
+  <div class="container">
+
+    <% if user_signed_in? %>
+
+      <div class="flex padding-vertical-large">
+        <aside class="sidebar">
+          <ul>
+            <% if @subscribing.any? %>
+              <% @subscribing.each do |user| %>
+                <li class="inactive-sidebar-tab"><%= link_to user.profile.display_name.presence || user.username, user_path(user) %>
+              <% end %>
+            <% else %>
+              You are not subscribed to anyone... yet.
+            <% end %>
+          </ul>
+        </aside>
+
+        <main class="content">
+          <% if @subscriptions.any? %>
+            <div class="flex">
+              <% @subscriptions.each do |video| %>
+                <div class="twenty-four border">
+
+                  <%= link_to user_video_path(video.user, video) do %>
+                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                  <% end %>
+
+                  <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                    <div class="video-title">
+                      <%= link_to video.title, user_video_path(video.user, video) %>
+                    </div>
+
+                    <div class="mini-text">
+                      <div class="flex">
+                        <div class="forty-eight">
+                          <%= link_to video.user.profile.display_name.presence || video.user.username, user_path(video.user), class: "black-link" %>
+                        </div>
+                        <div class="forty-eight right">
+                          <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div>
+              You are not subscribed to anyone... yet, but here are some awesome videos for you to watch.
+            </div>
+            <div class="flex">
+              <% Video.all.each do |video| %>
+                <div class="twenty-four border">
+
+                  <%= link_to user_video_path(video.user, video) do %>
+                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                  <% end %>
+
+                  <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                    <div class="video-title">
+                      <%= link_to video.title, user_video_path(video.user, video) %>
+                    </div>
+
+                    <div class="mini-text">
+                      <div class="flex">
+                        <div class="forty-eight">
+                          <%= link_to video.user.profile.display_name.presence || video.user.username, user_path(video.user), class: "black-link" %>
+                        </div>
+                        <div class="forty-eight right">
+                          <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </main>
+      </div>
+
+    <% else %>
+
+      <div class="flex padding-vertical-large">
+        <aside class="sidebar">
+          <ul>
+            <% User.all.each do |user| %>
+              <%= link_to user_path(user) do %>
+                <li class="inactive-sidebar-tab"><%= user.profile.display_name.presence || user.username %>
+                <% end %>
+            <% end %>
+          </ul>
+        </aside>
+
+        <main class="content">
+          <div class="padding-bottom">
+            You are not signed in... yet, but here are some awesome videos for you to watch.
+          </div>
+          <div class="flex">
+            <% Video.all.each do |video| %>
+              <div class="twenty-four border">
+
+                <%= link_to user_video_path(video.user, video) do %>
+                  <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                <% end %>
+
+                <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                  <div class="video-title">
+                    <%= link_to video.title, user_video_path(video.user, video) %>
+                  </div>
+
+                  <div class="mini-text">
+                    <div class="flex">
+                      <div class="forty-eight">
+                        <%= link_to video.user.profile.display_name.presence || video.user.username, user_path(video.user), class: "black-link" %>
+                      </div>
+                      <div class="forty-eight right">
+                        <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        </main>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

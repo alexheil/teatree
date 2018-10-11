@@ -1,0 +1,90 @@
+<div class="padding-vertical-large">
+  <div class="flex">
+    <div class="twenty-five">
+      <div class="no-mobile">
+        <% if @user.profile.image_url(:thumb).present? %>
+          <img class="thumbnail-image" src="<%= @user.profile.image_url(:thumb) %>">
+        <% end %>
+      </div>
+    </div>
+
+    <div class="seventy-three">
+      <div class="padding-bottom">
+        <% if user_signed_in? %>
+          <% if current_user != @user %>
+            <% if @user.plan.present? %>
+              <% if current_user.subscribing?(@user) %>
+                <%= form_for(current_user.active_subscriptions.find_by(subscribed_id: @user.id),
+                         html: { method: :delete }) do |f| %>
+                  <%= f.submit "Unsubscribe", data: { confirm: "Are you sure?" }, class: "submit-button" %>
+                <% end %>
+              <% else %>
+                <%= form_for(current_user.active_subscriptions.build) do |f| %>
+                  <div><%= hidden_field_tag :subscribed_id, @user.id %></div>
+                  <%= f.submit "Subscribe - #{@user.plan.amount} #{@user.plan.currency} per month", data: { confirm: "Just double checking... because your current card will be charged right now." }, class: "submit-button" %>
+                <% end %>
+              <% end %>
+            <% else %>
+              <div class="copy-button">
+                No subscription available
+              </div>
+            <% end %>
+          <% else %>
+            <% if current_user.plan.present?  %>
+              <div class="copy-button link-color">
+                Your plan is <%= current_user.plan.amount %> <%= current_user.plan.currency %>
+              </div>
+            <% else %>
+              <%= link_to new_user_plan_path(current_user) do %>
+                <div class="fake-button link-color">
+                  You do not have a plan. Make one?
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link_to sign_in_path do %>
+            <div class="fake-button link-color">
+              Sign in to subscribe
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="mid-text padding-bottom">
+        <div class="mobile-only">
+          <div class="flex">
+            <div class="mobile-profile-image">
+              <% if @user.profile.image_url(:thumb).present? %>
+                <img class="thumbnail-image-mini" src="<%= @user.profile.image_url(:thumb) %>">
+              <% end %>
+            </div>
+            <div class="mobile-profile-name">
+              <%= @user.profile.display_name.presence || @user.username %>
+            </div>
+          </div>
+        </div>
+        <div class="no-mobile">
+          <%= @user.profile.display_name.presence || @user.username %>
+        </div>
+      </div>
+
+      <div class="padding-bottom">
+        <% if @user.membership.present? %>
+        <%= @user.membership.membership_type.capitalize if @user.membership.membership_type %> | 
+        <% end %>
+        <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Subscriber") %>
+      </div>
+
+      <div class="padding-bottom">
+        <%= @user.profile.city if @user.profile.city.present? %><%= ", " if @user.profile.city.present? && (@user.profile.state.present? || @user.profile.country.present?) %><%= @user.profile.state if @user.profile.state.present? %><%= ", " if @user.profile.state.present? && @user.profile.country.present? %><%= @user.profile.country if @user.profile.country.present? %> 
+
+        <%= "|" if (@user.profile.city.present? || @user.profile.state.present? || @user.profile.country.present?) && (@user.profile.website.present? || @user.profile.twitter_url.present? || @user.profile.snapchat_url.present?) %> <%= link_to "Website", @user.profile.website, target: :_blank if @user.profile.website.present? %> <%= "|" if @user.profile.website.present? && (@user.profile.twitter_url.present? || @user.profile.snapchat_url.present?) %> <%= link_to "Twitter", @user.profile.twitter_url, target: :_blank, class: "profile-twitter" if @user.profile.twitter_url.present? %> <%= "|" if @user.profile.twitter_url.present? && @user.profile.snapchat_url.present? %> <%= link_to "Snapchat", @user.profile.snapchat_url, target: :_blank, class: "profile-snapchat" if @user.profile.snapchat_url.present? %>
+      </div>
+      <div class="padding-bottom">
+        <%= @user.profile.biography %>
+      </div>
+
+    </div>
+  </div>
+</div>

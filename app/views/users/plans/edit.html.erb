@@ -1,0 +1,29 @@
+<%= provide(:title, "Your plan") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Your plan
+      </div>
+
+      <div class="form-border">
+        Your plan is currently at <%= @user.plan.amount %> <%= @user.plan.currency.upcase %> per month. If you'd like to change your plan you need to delete your current plan and create a new one. You will lose your current subscribers.
+      </div>
+
+      <div class="padding-top dark center">
+        Don't forget that Stripe, our secure payment processor, takes a fee of <i>2.9% plus 0.30 (USD)</i> from <i>each transaction</i>.
+      </div>
+
+      <div class="mid-text padding-vertical-large center">
+        Delete your current plan
+      </div>
+
+      <div class="form-border">
+          <%= button_to "Delete my plan", user_plan_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
+        </div>
+
+    </div>
+  </div>
+</div>

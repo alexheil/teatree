@@ -1,0 +1,58 @@
+<%= provide(:title, "Set Up A Merchant Account") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Set up a merchant account
+      </div>
+
+      <%= form_for(@merchant, url: user_merchant_path) do |f| %>
+        <%= f.hidden_field :user_id %>
+        <%= render 'partials/errors/merchant_errors' %>
+        
+        <div class="form-border">
+          <div class="flex">
+            <div class="field-two-column">
+              <%= f.label :first_name %>
+              <%= f.text_field :first_name, class: "text-field" %>
+            </div>
+            <div class="field-two-column">
+              <%= f.label :last_name %>
+              <%= f.text_field :last_name, class: "text-field" %>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="field-three-column">
+              <%= f.label :month %> <span class="dark mini-text">(MM)</span>
+              <%= f.text_field :month, class: "text-field" %>
+            </div>
+            <div class="field-three-column">
+              <%= f.label :day %> <span class="dark mini-text">(DD)</span>
+              <%= f.text_field :day, class: "text-field" %>
+            </div>
+            <div class="field-three-column">
+              <%= f.label :year %> <span class="dark mini-text">(YYYY)</span>
+              <%= f.text_field :year, class: "text-field" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :country %>
+            <%= f.select :country, options_for_select(country) %>
+          </div>
+        </div>
+
+        <div class="padding-vertical center dark">
+          Don't forget that Stripe, our secure payment processor, takes a fee of <i>2.9% plus 0.30 (USD)</i> from <i>each transaction</i>. By registering your account, you agree to our <%= link_to 'Terms of Use', terms_path  %> and the <a href="https://stripe.com/connect/account-terms">Stripe Connected Account Agreement</a>.
+        </div>
+
+        <div class="form-border">
+          <%= f.submit "Create merchant account", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>

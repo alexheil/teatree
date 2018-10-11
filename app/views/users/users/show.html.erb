@@ -1,0 +1,74 @@
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username)) %>
+
+<%= render 'users/partials/user_twitter_cards' %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <%= render 'users/partials/nameplate' %>
+
+    <% if @user.videos.any? %>
+      <div class="sixty">
+        <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+          <source src="<%= @user.videos.first.video_url %>">
+          Your browser does not support this video.
+        </video>
+        <div class="padding-top mid-text">
+          <%= link_to @user.videos.first.title, user_video_path(@user, @user.videos.first) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="flex padding-vertical-large">
+      <aside class="sidebar">
+        <ul>
+          <%= link_to user_path(@user), class: "link-color" do %>
+            <li class="active-sidebar-tab">Videos</li>
+          <% end %>
+          <%= link_to user_about_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Description</li>
+          <% end %>
+          <%= link_to user_subscriptions_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Subscriptions</li>
+          <% end %>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <% if @user.videos.any? %>
+          <div class="flex">
+            <% @user.videos.each do |video| %>
+              <div class="twenty-four border">
+
+                <%= link_to user_video_path(@user, video) do %>
+                  <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                <% end %>
+
+                <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                  <div class="video-title">
+                    <%= link_to video.title, user_video_path(@user, video) %>
+                  </div>
+
+                  <div class="mini-text">
+                    <div class="flex">
+                      <div class="forty-eight">
+                        <%= @user.profile.display_name.presence || @user.username %>
+                      </div>
+                      <div class="forty-eight right">
+                        <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
+        <% end %>
+      </main>
+    </div>
+
+  </div>
+</div>

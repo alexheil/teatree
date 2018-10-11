@@ -1,0 +1,56 @@
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("\n's Subscriptions")) %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <%= render 'users/partials/nameplate' %>
+
+    <div class="flex padding-bottom-large">
+      <aside class="sidebar">
+        <ul>
+          <%= link_to user_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Videos</li>
+          <% end %>
+          <%= link_to user_about_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Description</li>
+          <% end %>
+          <%= link_to user_subscriptions_path(@user), class: "link-color" do %>
+            <li class="active-sidebar-tab">Subscriptions</li>
+          <% end %>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <% if @subscriptions.any? %>
+          <div class="flex">
+            <% @subscriptions.each do |user| %>
+              <div class="twenty-four border">
+
+                <%= link_to user_path(user) do %>
+                  <img class="thumbnail-image-feed-four" src="<%= user.profile.image_url(:thumb) %>">
+                <% end %>
+
+                <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                  <div class="mini-text">
+                    <div class="flex">
+                      <div class="forty-eight">
+                        <%= link_to user.profile.display_name.presence || user.username, user_path(user), class: "black-link" %>
+                      </div>
+                      <div class="forty-eight right">
+                        <%= pluralize(user.passive_subscriptions.count, 'subscriber') %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          There are no subscriptions... yet. <%= link_to "Let's find something you'll love!", categories_path if @user == current_user %>
+        <% end %>
+      </main>
+    </div>
+
+  </div>
+</div>

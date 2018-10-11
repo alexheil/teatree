@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <div class="container">
+
+    <div class="padding-vertical-large">
+      <div class="mid-container">
+
+        <img class="thumbnail-image" src="https://i.imgur.com/DKkTuEC.jpg">
+
+      </div>
+    </div>
+
+    <div class="padding-bottom-large">
+
+      <div class="center padding-bottom-large mid-text">
+        You have new subscribers on Tea Tree!
+      </div>
+
+      <div class="form-container form-border">
+
+        <div class="padding-bottom">
+          You got some new subscribers yesterday, and we just wanted to make sure you knew.
+        </div>
+
+        <div class="padding-vertical">
+          Here are all of your new pals:
+        </div>
+
+        <% @user.subscribers.where(:subscriptions => { created_at: Time.zone.now.yesterday.beginning_of_day..Time.zone.now.yesterday.end_of_day }).find_each do |user| %>
+          <div class="padding-vertical">
+            <%= link_to user.profile.display_name.presence || user.username, user_url(user) %>
+          </div>
+        <% end %>
+
+        <div class="padding-top">
+          <%= link_to "Go hang out with them!", user_url(@user) %>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

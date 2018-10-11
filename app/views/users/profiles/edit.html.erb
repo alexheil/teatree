@@ -1,0 +1,94 @@
+<%= provide(:title, "Edit Your Profile") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Edit your profile
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(@profile, url: user_profile_path(@user)) do |f| %>
+          <span id="profile_errors"><%= render 'partials/errors/profile_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :display_name %>
+            <%= f.text_field :display_name, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: "text-field" %>
+          </div>
+
+          <% if @profile.image_data? %>
+            <div class="field">
+              <img class="thumbnail-image" src="<%= @user.profile.image_url(:thumb) %>">
+            </div>
+            <div class="flex border-bottom">
+              <div class="field-two-column center">
+                <label class="image-button" for="profile-image">Upload a profile image</label>
+                <%= f.hidden_field :image, value: @profile.cached_image_data %>
+                <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+                <div class="file-name"></div>
+              </div>
+              <div class="field-two-column center">
+                <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+                <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+              </div>
+            </div>
+          <% else %>
+            <div class="padding-bottom border-bottom">
+              <label class="image-button" for="profile-image">Upload a profile image</label>
+              <%= f.hidden_field :image, value: @profile.cached_image_data %>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+              <div class="file-name"></div>
+            </div>
+          <% end %>
+
+          <div class="field padding-top">
+            <%= f.label :age %>
+            <%= f.text_field :age, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :city %>
+            <%= f.text_field :city, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :state %>
+            <%= f.text_field :state, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :country %>
+            <%= f.text_field :country, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :website %>
+            <%= f.text_field :website, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :twitter_handle %>
+            <%= f.text_field :twitter_handle, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :instagram_handle %>
+            <%= f.text_field :instagram_handle, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :biography %>
+            <%= f.text_area :biography, class: "text-area" %>
+          </div>
+
+          <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

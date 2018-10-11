@@ -1,0 +1,28 @@
+<%= provide(:title, "Forgot Your Password?") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Forgot your password
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.email_field :email, autocomplete: "email", class: "text-field" %>
+          </div>
+
+          <div class="">
+            <%= f.submit "Reset my password", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
