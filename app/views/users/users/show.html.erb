@@ -76,13 +76,17 @@
 
 <% if user_signed_in? && current_user.id == @owner.id %>
   <%= form_for(@user, url: user_path(@user), html: { method: :put }) do |f| %>
-    <div class="field">
-      <label class="unchecked-tab" id="paid-tab" for="is-paid-click">Banned?</label>
-            <%= f.check_box(:banned, id: "is-paid-click") %>
+    <div class="flex">
+      <div class="field-two-column">
+        <label class="inactive-paid-tab" id="first-email-tab" for="first-email-inactive">Banned?</label>
+        <%= f.check_box(:banned, id: "first-email-inactive") %>
+      </div>
+      <div class="field-two-column">
+        <label class="inactive-paid-tab" id="second-email-tab" for="second-email-inactive">Banned?</label>
+        <%= f.check_box(:verified, id: "second-email-inactive") %>
+      </div>
     </div>
-    <div class="actions">
-      <%= f.submit "Update", class: "submit-button" %>
-    </div>
+    <%= f.submit "Update", class: "submit-button" %>
   <% end %>
 
 <% end %>
