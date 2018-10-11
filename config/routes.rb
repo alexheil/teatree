@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get 'register', to: 'users/registrations#new'
   end
 
-  resources :users, controller: 'users/users', only: :show do
+  resources :users, controller: 'users/users', only: [:show, :update] do
     resource :profile, controller: 'users/profiles', only: [:edit, :update]
     resource :source, controller: 'users/sources', only: [:edit, :update]
     resource :membership, controller: 'users/memberships', except: [:show, :index]

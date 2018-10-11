@@ -4,6 +4,7 @@ class Users::PlansController < ApplicationController
   before_action :merchant_account
   before_action :correct_user
   before_action :set_user
+  before_action :has_plan, only: [:edit, :update]
 
   def new
     if user_signed_in? && current_user.merchant.present?
@@ -129,6 +130,14 @@ class Users::PlansController < ApplicationController
       if @user.merchant.nil?
         redirect_to new_user_merchant_path(@user)
         flash[:alert] = "You need to set up a merchant account first."
+      end
+    end
+
+    def has_plan
+      @user = current_user
+      if @user.plan.blank?
+        redirect_to new_user_plan_path(@user)
+        flash[:alert] = "You need to set up a plan first."
       end
     end
 

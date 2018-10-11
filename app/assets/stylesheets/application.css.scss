@@ -1059,6 +1059,30 @@ select {
   }
 }
 
+.delete-button {
+  @include buttons;
+  padding: .51vh .51vw;
+  background: $red;
+  border: 2px solid $red;
+  color: $white;
+  cursor: default;
+  &:hover {
+    box-shadow: none;
+  }
+}
+
+.verified-button {
+  @include buttons;
+  padding: .51vh .51vw;
+  background: $dark;
+  border: 2px solid $dark;
+  color: $white;
+  cursor: default;
+  &:hover {
+    box-shadow: none;
+  }
+}
+
 .fake-button-dark {
   @include buttons;
   padding: .51vh .51vw;

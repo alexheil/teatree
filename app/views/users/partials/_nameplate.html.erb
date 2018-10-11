@@ -1,6 +1,20 @@
 <div class="padding-vertical-large">
   <div class="flex">
     <div class="twenty-five">
+      <% if user_signed_in? && current_user == @user && @user.banned? %>
+        <div class="padding-bottom">
+          <div class="delete-button">
+            You are currently banned
+          </div>
+        </div>
+      <% end %>
+      <% if @user.verified? %>
+        <div class="padding-bottom">
+          <div class="verified-button">
+            Verified user!
+          </div>
+        </div>
+      <% end %>
       <div class="no-mobile">
         <% if @user.profile.image_url(:thumb).present? %>
           <img class="thumbnail-image" src="<%= @user.profile.image_url(:thumb) %>">

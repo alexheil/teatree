@@ -8,18 +8,20 @@
     <%= render 'users/partials/nameplate' %>
 
     <% if @user.videos.any? %>
-      <div class="sixty">
-        <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
-          <source src="<%= @user.videos.first.video_url %>">
-          Your browser does not support this video.
-        </video>
-        <div class="padding-top mid-text">
-          <%= link_to @user.videos.first.title, user_video_path(@user, @user.videos.first) %>
+      <div class="padding-bottom-large">
+        <div class="sixty">
+          <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+            <source src="<%= @user.videos.first.video_url %>">
+            Your browser does not support this video.
+          </video>
+          <div class="padding-top mid-text">
+            <%= link_to @user.videos.first.title, user_video_path(@user, @user.videos.first) %>
+          </div>
         </div>
       </div>
     <% end %>
 
-    <div class="flex padding-vertical-large">
+    <div class="flex padding-bottom-large">
       <aside class="sidebar">
         <ul>
           <%= link_to user_path(@user), class: "link-color" do %>
@@ -73,7 +75,6 @@
   </div>
 </div>
 
-
 <% if user_signed_in? && current_user.id == @owner.id %>
   <%= form_for(@user, url: user_path(@user), html: { method: :put }) do |f| %>
     <div class="flex">
@@ -82,7 +83,7 @@
         <%= f.check_box(:banned, id: "first-email-inactive") %>
       </div>
       <div class="field-two-column">
-        <label class="inactive-paid-tab" id="second-email-tab" for="second-email-inactive">Banned?</label>
+        <label class="inactive-paid-tab" id="second-email-tab" for="second-email-inactive">Verified?</label>
         <%= f.check_box(:verified, id: "second-email-inactive") %>
       </div>
     </div>
