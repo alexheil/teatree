@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     end
     get 'about' => 'users/users#about'
     get 'subscriptions' => 'users/users#subscriptions'
+    get 'subscribers' => 'users/users#subscribers'
   end
 
   resources :subscriptions, controller: 'users/subscriptions', only: [:create, :destroy]
