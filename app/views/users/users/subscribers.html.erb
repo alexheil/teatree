@@ -15,15 +15,20 @@
             <li class="inactive-sidebar-tab">Description</li>
           <% end %>
           <%= link_to user_subscriptions_path(@user), class: "link-color" do %>
-            <li class="active-sidebar-tab">Subscriptions</li>
+            <li class="inactive-sidebar-tab">Subscriptions</li>
+          <% end %>
+          <% if user_signed_in? && current_user == @user && @user.passive_subscriptions.any? %>
+            <%= link_to user_subscribers_path(@user), class: "link-black" do %>
+              <li class="active-sidebar-tab">Subscribers</li>
+            <% end %>
           <% end %>
         </ul>
       </aside>
 
       <main class="content">
-        <% if @subscriptions.any? %>
+        <% if @subscribers.any? %>
           <div class="flex">
-            <% @subscriptions.each do |user| %>
+            <% @subscribers.each do |user| %>
               <div class="twenty-four border">
 
                 <%= link_to user_path(user) do %>
@@ -47,7 +52,7 @@
             <% end %>
           </div>
         <% else %>
-          You have no subscriptions... yet. <%= link_to "Let's find something you'll love!", categories_path if @user == current_user %>
+          You have no subscribers... yet.
         <% end %>
       </main>
     </div>

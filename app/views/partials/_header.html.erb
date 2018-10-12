@@ -53,6 +53,7 @@
       <% else %>
         <li><%= link_to 'YOUR PAGE', user_path(current_user), class: "nav-links" %></li>
         <li><%= link_to 'SUBSCRIPTIONS', user_subscriptions_path(current_user), class: "nav-links" %></li>
+        <li><%= link_to 'SUBSCRIBERS', user_subscribers_path(current_user), class: "nav-links" if current_user.passive_subscriptions.any? %></li>
         <li><%= link_to 'PROFILE', edit_user_profile_path(current_user), class: "nav-links" %></li>
         <% if current_user.plan.present? %>
           <li><%= link_to 'PLAN', edit_user_plan_path(current_user), class: "nav-links" %></li>

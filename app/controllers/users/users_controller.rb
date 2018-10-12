@@ -3,7 +3,6 @@ class Users::UsersController < ApplicationController
   before_action :authenticate_user!, only: :update
   before_action :correct_user, only: :update
 
-
   def show
     @owner = User.friendly.find(1)
     @user = User.friendly.find(params[:id])
@@ -23,7 +22,6 @@ class Users::UsersController < ApplicationController
     end
   end
 
-
   def about
     @user = User.friendly.find(params[:user_id])
   end
@@ -31,6 +29,11 @@ class Users::UsersController < ApplicationController
   def subscriptions
     @user = User.friendly.find(params[:user_id])
     @subscriptions = @user.subscribing
+  end
+
+  def subscribers
+    @user = User.friendly.find(params[:user_id])
+    @subscribers = @user.subscribers
   end
 
   private
