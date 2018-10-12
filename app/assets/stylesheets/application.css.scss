@@ -616,9 +616,10 @@ video {
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: $letterspacer;
+    color: $main;
     &:hover {
       text-decoration: none;
-      color: $light;
+      color: $dark;
     }
   }
   ul {
