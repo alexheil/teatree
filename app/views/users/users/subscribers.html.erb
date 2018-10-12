@@ -1,4 +1,4 @@
-<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("\n's Subscriptions")) %>
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("\n's Subscribers")) %>
 
 <div class="wrapper">
   <div class="container">
@@ -14,11 +14,11 @@
           <%= link_to user_about_path(@user), class: "link-black" do %>
             <li class="inactive-sidebar-tab">Description</li>
           <% end %>
-          <%= link_to user_subscriptions_path(@user), class: "link-color" do %>
+          <%= link_to user_subscriptions_path(@user), class: "link-black" do %>
             <li class="inactive-sidebar-tab">Subscriptions</li>
           <% end %>
           <% if user_signed_in? && current_user == @user && @user.passive_subscriptions.any? %>
-            <%= link_to user_subscribers_path(@user), class: "link-black" do %>
+            <%= link_to user_subscribers_path(@user), class: "link-color" do %>
               <li class="active-sidebar-tab">Subscribers</li>
             <% end %>
           <% end %>
@@ -42,7 +42,7 @@
                         <%= link_to user.profile.display_name.presence || user.username, user_path(user), class: "black-link" %>
                       </div>
                       <div class="forty-eight right">
-                        <%= pluralize(user.passive_subscriptions.count, 'subscriber') %>
+                        <%= pluralize(user.active_subscriptions.count, 'subscription') %>
                       </div>
                     </div>
                   </div>

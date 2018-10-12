@@ -2,6 +2,7 @@ class Users::UsersController < ApplicationController
   
   before_action :authenticate_user!, only: :update
   before_action :correct_user, only: :update
+  before_action :correct_user_subscribers, only: :subscribers
 
   def show
     @owner = User.friendly.find(1)
@@ -34,6 +35,7 @@ class Users::UsersController < ApplicationController
   def subscribers
     @user = User.friendly.find(params[:user_id])
     @subscribers = @user.subscribers
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
   end
 
   private
@@ -41,6 +43,14 @@ class Users::UsersController < ApplicationController
     def correct_user
       @owner = User.friendly.find(1)
       @user = User.friendly.find(params[:id])
+      unless current_user == @user || current_user == @owner
+        redirect_to root_url
+      end
+    end
+
+    def correct_user_subscribers
+      @owner = User.friendly.find(1)
+      @user = User.friendly.find(params[:user_id])
       unless current_user == @user || current_user == @owner
         redirect_to root_url
       end
