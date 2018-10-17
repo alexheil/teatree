@@ -22,6 +22,9 @@ class StaticPagesController < ApplicationController
   def updates
   end
 
+  def guidelines
+  end
+
   def become_member
     if user_signed_in?
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
