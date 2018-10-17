@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'about' => 'static_pages#about'
   get 'updates' => 'static_pages#updates'
   get 'faq' => 'static_pages#faq'
+  get 'guidelines' => 'static_pages#guidelines'
 
   get 'search' => 'users/videos#search'
 
