@@ -30,6 +30,7 @@ class Users::SubscriptionsController < ApplicationController
       }],
     }, stripe_account: @subscribed.merchant.stripe_id)
 
+
     subscription.save
 
     if subscription.save
