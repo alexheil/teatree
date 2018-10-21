@@ -18,9 +18,10 @@ class Users::MembershipsController < ApplicationController
     customer = Stripe::Customer.retrieve(@user.customer_id)
     
     # check if customer has a source on file
-    if customer.default_source.blank?
-      url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/edit"
+    if params[:membership][:promo_code] != "teatreefounder" && customer.default_source.blank?
+      url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/new"
       redirect_to edit_user_source_path(@user, :url => Base64.encode64(url))
+      flash[:alert] = "You need to add a payment source to become a member."
     else
       # create a Stripe membership
       subscription = Stripe::Subscription.create({
@@ -28,7 +29,7 @@ class Users::MembershipsController < ApplicationController
         items: [{
           plan: params[:membership][:membership_type] + "_id"
         }],
-        coupon: params[:membership][:promo_code] if params[:membership][:promo_code],
+        coupon: params[:membership][:promo_code],
       })
 
       subscription.save
@@ -66,6 +67,7 @@ class Users::MembershipsController < ApplicationController
     if customer.default_source.blank?
       url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/edit"
       redirect_to edit_user_source_path(@user, :url => Base64.encode64(url))
+      flash[:notice] = "You need to add a payment source to become a member."
     else
       # grab Stripe membership and update it
       subscription = Stripe::Subscription.retrieve(@membership.stripe_subscription_id)
@@ -97,10 +99,10 @@ class Users::MembershipsController < ApplicationController
     if subscription.delete
       @membership.destroy
       redirect_to new_user_membership_path(@user)
-      flash[:notice] = "zYour membership has been deleted."
+      flash[:notice] = "Your membership has been deleted."
     else
       redirect_to new_user_membership_path(@user)
-      flash[:alert] = ""
+      flash[:alert] = "Your membership could not be deleted."
     end
   end
 
