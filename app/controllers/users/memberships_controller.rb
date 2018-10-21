@@ -28,6 +28,7 @@ class Users::MembershipsController < ApplicationController
         items: [{
           plan: params[:membership][:membership_type] + "_id"
         }],
+        coupon: params[:membership][:promo_code] if params[:membership][:promo_code],
       })
 
       subscription.save

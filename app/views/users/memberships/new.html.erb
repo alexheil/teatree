@@ -55,6 +55,12 @@
       <div class="form-border">
         <%= form_for(@membership, url: user_membership_path(@user)) do |f| %>
         <%= f.hidden_field :membership_type, :value => "basic" %>
+
+        <div class="field">
+          <%= f.label :promo_code %> <span class="dark mini-text">(optional)</span>
+          <%= f.text_field :promo_code, class: "text-field" %>
+        </div>
+        
         <%= f.submit "Become a member", data: { disable_with: 'Creating...' }, class: "submit-button" %>
         <% end %>
       </div>
