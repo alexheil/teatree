@@ -75,6 +75,45 @@
 
       <main class="content">
 
+        <div class="padding-bottom">
+          To become a full blown member of Tea Tree, which includes being able to upload video and receive supporters, you have to complete a few steps. Don't worry, we've tested this on humans and it only takes a few minutes to complete.
+        </div>
+
+        <div class="bold padding-bottom">
+          STEPS:
+        </div>
+
+          <% if user_signed_in? %>
+            
+            <% if @customer.default_source.blank? %>
+              
+            <% else %>
+
+              <% if current_user.membership.nil? %>
+                
+              <% else %>
+                
+                <% if current_user.merchant.nil? %>
+
+                <% else %>
+
+                  <% if @merchant.external_accounts.any? %>
+                    
+                    <% if current_user.plan.present? %>
+                      
+                    <% else %>
+                      
+                    <% end %>
+                  <% else %>
+                    
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% else %>
+
+          <% end %>
+
 
         it will tell you how to complete the steps like the one it is on
         
