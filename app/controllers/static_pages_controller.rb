@@ -27,10 +27,14 @@ class StaticPagesController < ApplicationController
 
   def become_member
     if user_signed_in?
+      @user = current_user
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
-      @customer = Stripe::Customer.retrieve(current_user.customer_id)
-      if current_user.merchant.present?
-        @merchant = Stripe::Account.retrieve(current_user.merchant.stripe_id)
+      @customer = Stripe::Customer.retrieve(@user.customer_id)
+      if @user.membership.blank?
+        @membership = Membership.new
+      end
+      if @user.merchant.present?
+        @merchant = Stripe::Account.retrieve(@user.merchant.stripe_id)
       end
     end
   end

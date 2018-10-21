@@ -5,6 +5,7 @@ class Users::VideosController < ApplicationController
   before_action :correct_video_user, only: [:edit, :update, :destroy]
   before_action :set_user, except: [:show, :search]
   before_action :banned, only: [:new, :create]
+  before_action :member, only: [:new, :create]
 
   def search
     @videos = Video.search(params[:search]).order("created_at DESC").page params[:page]
@@ -63,6 +64,14 @@ class Users::VideosController < ApplicationController
 
     def set_user
       @user = current_user
+    end
+
+    def member
+      @user = current_user
+      if current_user.membership.blank?
+        redirect_to new_user_membership_path(@user)
+        flash[:alert] = "You need to be a member before you can upload a video."
+      end
     end
 
     def correct_user

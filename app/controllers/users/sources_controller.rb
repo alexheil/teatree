@@ -1,18 +1,16 @@
 class Users::SourcesController < ApplicationController
 
+  before_action :authenticate_user!
+
   def edit
-    if user_signed_in?
-      @user = current_user
+    @user = current_user
 
-      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
 
-      @customer = Stripe::Customer.retrieve(@user.customer_id)
+    @customer = Stripe::Customer.retrieve(@user.customer_id)
 
-      if @customer.default_source.present?
-        @card = @customer.sources.retrieve(@customer.default_source)
-      end
-    else
-      redirect_to root_url
+    if @customer.default_source.present?
+      @card = @customer.sources.retrieve(@customer.default_source)
     end
   end
 

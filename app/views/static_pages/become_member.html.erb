@@ -5,12 +5,14 @@
     <div class="padding-vertical-large">
 
       <div class="mid-container">
-        <div class="padding-bottom">
-          <img class="thumbnail-image" src="https://i.imgur.com/fmALL2b.jpg">
+
+        <div class="category-image-container link-color">
+          <img class="thumbnail-image" src="https://i.imgur.com/g7QPIqu.jpg">
+          <div class="category-image-centered mid-text">
+            Become a Member
+          </div>
         </div>
-        <div class="mid-text padding-bottom">
-          Become a member
-        </div>
+
       </div>
     </div>
 
@@ -23,7 +25,7 @@
           <% if user_signed_in? %>
             <li class="active-sidebar-tab"><span class="no-cursor">Register</span></li>
             <% if @customer.default_source.blank? %>
-              <li class="inactive-sidebar-tab"><%= link_to "Payment Source", edit_user_source_path(current_user) %></li>
+              <li class="inactive-sidebar-tab"><%= link_to "Payment Source", edit_user_source_path(@user) %></li>
               <li class="inactive-sidebar-tab"><span class="no-cursor">Membership</span></li>
               <li class="inactive-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
               <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
@@ -31,8 +33,8 @@
               <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
             <% else %>
               <li class="active-sidebar-tab"><span class="no-cursor">Payment Source</span></li>
-              <% if current_user.membership.nil? %>
-                <li class="inactive-sidebar-tab"><%= link_to "Membership", new_user_membership_path(current_user) %></li>
+              <% if @user.membership.nil? %>
+                <li class="inactive-sidebar-tab"><%= link_to "Membership", new_user_membership_path(@user) %></li>
                 <li class="inactive-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
                 <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
                 <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
@@ -40,21 +42,21 @@
               <% else %>
                 <li class="active-sidebar-tab"><span class="no-cursor">Membership</span></li>
                 <li class="active-sidebar-tab"><span class="no-cursor">Unlock Uploads</span></li>
-                <% if current_user.merchant.nil? %>
-                  <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 1", new_user_merchant_path(current_user) %></li>
+                <% if @user.merchant.nil? %>
+                  <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 1", new_user_merchant_path(@user) %></li>
                   <li class="inactive-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
                   <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
                 <% else %>
                   <li class="active-sidebar-tab"><span class="no-cursor">Merchant, PT 1</span></li>
                   <% if @merchant.external_accounts.any? %>
                     <li class="active-sidebar-tab"><span class="no-cursor">Merchant, PT 2</span></li>
-                    <% if current_user.plan.present? %>
+                    <% if @user.plan.present? %>
                       <li class="active-sidebar-tab"><span class="no-cursor">Plan</span></li>
                     <% else %>
-                      <li class="inactive-sidebar-tab"><%= link_to "Plan", new_user_plan_path(current_user) %></li>
+                      <li class="inactive-sidebar-tab"><%= link_to "Plan", new_user_plan_path(@user) %></li>
                     <% end %>
                   <% else %>
-                    <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 2", edit_user_merchant_path(current_user) %></li>
+                    <li class="inactive-sidebar-tab"><%= link_to "Merchant, PT 2", edit_user_merchant_path(@user) %></li>
                     <li class="inactive-sidebar-tab"><span class="no-cursor">Plan</span></li>
                   <% end %>
                 <% end %>
@@ -76,74 +78,134 @@
       <main class="content">
 
         <div class="padding-bottom">
-          To become a full blown member of Tea Tree, which includes being able to upload video and receive supporters, you have to complete a few steps. Don't worry, we've tested this on humans and it only takes a few minutes to complete.
+          To become a full-fledged member of Tea Tree, which includes being able to upload video and grow support on your page, you have to complete a few steps. Don't worry, we've tested this on humans and it only takes a few minutes to complete.
         </div>
 
-        <div class="bold padding-bottom">
-          STEPS:
-        </div>
+        <% if user_signed_in? %>
+          <% if @customer.default_source.blank? %>
+            <div class="padding-vertical mid-text">
+              Add a Payment Source
+            </div>
 
-          <% if user_signed_in? %>
-            
-            <% if @customer.default_source.blank? %>
-              
+            <div class="padding-vertical">
+              A membership to Tea Tree costs <span class="bold">$3.00 USD per month</span>. In order to process a payment we do need to have a payment source on file.
+            </div>
+
+            <div class="padding-vertical">
+              The membership costs does a lot of things for us including preventing spam, covers the cost of hosting, and allows us to bring potentional support to your page. You can find more information <%= link_to "if you look around", new_user_membership_path(@user) %>.
+            </div>
+
+            <div class="padding-vertical">
+              Your sensitive information is never saved in Tea Tree's database. Tea Tree will not have access to this information via this website. We use Stripe! <%= link_to "Learn why", faq_path %>.
+            </div>
+
+            <div class="padding-top">
+              <%= form_for(@user, url: user_source_path(@user), :html => {:id => "payment-form"}) do |f| %>
+                <%= hidden_field_tag :url, params[:url].to_s %>
+                <span class="payment-errors"></span>
+
+                <div class="field">
+                  <%= f.label :cardholder %>
+                  <%= f.text_field :cardholder, class: "text-field" %>
+                </div>
+
+                <div class="field">
+                  <label for="card-element">
+                    Credit or debit card
+                  </label>
+                  <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                  </div>
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+
+                <div class="">
+                  <button type="submit" class="submit-button">Add source</button>
+                </div>
+              <% end %>
+            </div>
+
+            <%= render 'partials/stripe' %>
+
+          <% else %>
+            <% if @user.membership.nil? %>
+              <div class="padding-vertical mid-text">
+                Become a Member of Tea Tree
+              </div>
+
+              <div class="padding-vertical">
+                The last thing left, unless you want to start getting supporters to your page, is just to become a member.
+              </div>
+
+              <div class="padding-vertical">
+                After this, you'll be able to upload quality videos and be a part of what makes Tea Tree so awesome!
+              </div>
+
+              <div class="padding-vertical">
+                It's as simple as pressing the button below. This will automatically charge the card you have on file, so make sure you're ready. <%= link_to "You can find more about the membership here.", new_user_membership_path(@user) %>
+              </div>
+
+              <div class="padding-top">
+                <%= form_for(@membership, url: user_membership_path(@user)) do |f| %>
+                <%= f.hidden_field :membership_type, :value => "basic" %>
+                <%= f.submit "Become a member", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+                <% end %>
+              </div>
             <% else %>
+              <% if @user.merchant.nil? %>
 
-              <% if current_user.membership.nil? %>
-                
               <% else %>
-                
-                <% if current_user.merchant.nil? %>
-
-                <% else %>
-
-                  <% if @merchant.external_accounts.any? %>
+                <% if @merchant.external_accounts.any? %>
+                  
+                  <% if @user.plan.present? %>
                     
-                    <% if current_user.plan.present? %>
-                      
-                    <% else %>
-                      
-                    <% end %>
                   <% else %>
                     
                   <% end %>
+                <% else %>
+                  
                 <% end %>
               <% end %>
             <% end %>
-          <% else %>
-
           <% end %>
+        <% else %>
 
+          <div class="padding-vertical mid-text">
+            Register for Tea Tree
+          </div>
 
-        it will tell you how to complete the steps like the one it is on
-        
-        <div class="mid-text padding-bottom-large center">
-          What is a membership?
-        </div>
+          <div class="padding-vertical">
+            First, you have to create an account with Tea Tree. With your high brain power, this should be a cinch. All you have to do is fill out the form below. If you already have an account and just forgot, you can <%= link_to "sign yourself in", sign_in_path %>.
+          </div>
 
-        <div>Prevents spam - a lot of videos on the internet are dumb as hell. This makes sure only content creators who are serious are uploading videos</div>
+          <div class="padding-top">
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
 
-        <div>Allows fans to subscribe to you - fans can subscribe to your premium content for just 2$ a month. </div>
+              <div class="field">
+                <%= f.label :username %>
+                <%= f.text_field :username, class: "text-field" %>
+              </div>
 
-        <div>Allows you to upload videos - what’s a video hosting site without videos</div>
+              <div class="field">
+                <%= f.label :email %>
+                <%= f.email_field :email, class: "text-field" %>
+              </div>
 
-        <div>Allows us to cover the cost of hosting - video hosting isn’t cheap. It costs around .02$ per GB of image and video. That doesn’t seem like a lot, but it adds up. A 4 minute video is around 1 GB. If you upload 30 4 minute videos a month it costs 1.80 per month.</div>
+              <div class="field">
+                <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %></span>
+                <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+              </div>
 
-        <div>There are a couple of steps. First you have to add a card on file. Next you have to become a member. This is where you sunscribe to the site and unlock the ability to upload videos. Then you need to become a merchant in order to accept payments.</div>
-
-        <div>
-          <% if user_signed_in? %>
-            <% if @customer.default_source.blank? %>
-              <%= link_to "Add a card", edit_user_source_path(current_user) %>
-            <% elsif current_user.membership.nil? %>
-              <%= link_to "Become a member", new_user_membership_path(current_user) %>
-            <% elsif current_user.merchant.nil? %>
-              <%= link_to "Become a merchant", new_user_merchant_path(current_user) %>
+              <div class="">
+                <%= f.submit "Register", class: "submit-button" %>
+              </div>
             <% end %>
-          <% end %>
+          </div>
 
-          <div>This is where button to add card on file OR subscribe via form or create a merchant account. if they have a merchant account this page doesnt appear.</div>
-        </div>
+        <% end %>
 
       </main>
     </div>
