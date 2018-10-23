@@ -48,6 +48,11 @@ gem 'mini_magick'
 gem 'streamio-ffmpeg'
 gem 'aws-sdk-s3'
 
+group :production do
+  gem 'pg', '~> 0.21.0'
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
