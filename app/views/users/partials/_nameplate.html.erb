@@ -85,7 +85,12 @@
 
       <div class="padding-bottom">
         <% if @user.membership.present? %>
-        <%= @user.membership.membership_type.capitalize if @user.membership.membership_type %> | 
+          <% if @user.membership.id < 101 %>
+            Tea Tree Founder
+          <% else %>
+            <%= @user.membership.membership_type.capitalize if @user.membership.membership_type %>
+          <% end %>
+           | 
         <% end %>
         <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Subscriber") %>
       </div>
