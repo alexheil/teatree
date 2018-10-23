@@ -500,8 +500,13 @@ video {
 .thirteen {
   margin: 0;
   width: 13%;
-  padding-left: 2%;
-  border-left: 1px solid $border;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.fifteen {
+  margin: 0;
+  width: 15%;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -1398,8 +1403,13 @@ select {
   }
 
   .thirteen {
-    padding-top: 2vh;
-    padding-left: 0;
+    margin-top: 2vh;
+    border: 0;
+    width: 100%;
+  }
+
+  .fifteen {
+    margin-top: 2vh;
     border: 0;
     width: 100%;
   }
@@ -1425,6 +1435,10 @@ select {
   }
 
   .seventy-three {
+    width: 100%;
+  }
+
+  .eighty-one {
     width: 100%;
   }
 

@@ -16,7 +16,7 @@
             </video>
           </div>
 
-          <div class="thirteen">
+          <div class="fifteen">
             <div class="blackbox">
               <%= render 'partials/ad_trash' %>
             </div>
@@ -126,7 +126,6 @@
 
       <main class="content">
         <div id="first-tab">
-          <div class="padding-bottom-large">
             <% if user_signed_in? %>
               <% if current_user.subscribing?(@user) || current_user == @user %>
                 <%= form_for(@comment, url: user_video_comments_path(@user, @video)) do |f| %>
@@ -140,60 +139,60 @@
                 You must be subscribed to <%= @user.profile.display_name.presence || @user.username %> to leave a comment on this video.
               <% end %>
             <% else %>
-              You need to <%= link_to "register", register_path %> or <%= link_to "sign in", sign_in_path %> to comment on <%= @user.profile.display_name.presence || @user.username %>'s video.
-            <% end %>
-          </div>
-
-
-          <div class="padding-bottom">
-            <% @video.comments.each do |comment| %>
-              <div class="mini-text">
-                <%= link_to comment.user.profile.display_name.presence || comment.user.username %> <span class="dark">posted <%= time_ago_in_words(comment.created_at) %></span>
-              </div>
-              <div class="padding-bottom">
-                <%= comment.content %>
+              <div class="padding-bottom-large">
+                You need to <%= link_to "register", register_path %> or <%= link_to "sign in", sign_in_path %> to comment on <%= @user.profile.display_name.presence || @user.username %>'s video.
               </div>
             <% end %>
-          </div>
+
+          <% if @video.comments.any? %>
+            <div class="padding-bottom">
+              <% @video.comments.each do |comment| %>
+                <div class="mini-text">
+                  <%= link_to comment.user.profile.display_name.presence || comment.user.username %> <span class="dark">posted <%= time_ago_in_words(comment.created_at) %></span>
+                </div>
+                <div class="padding-bottom">
+                  <%= comment.content %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+
         </div>
 
         <div id="second-tab">
-          <div class="padding-bottom">
 
+          <% if @user.videos.any? %>
+            <div class="flex">
+              <% @user.videos.newest.each do |video| %>
+                <div class="twenty-four border">
 
-            <% if @user.videos.any? %>
-              <div class="flex">
-                <% @user.videos.each do |video| %>
-                  <div class="twenty-four border">
+                  <%= link_to user_video_path(@user, video) do %>
+                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                  <% end %>
 
-                    <%= link_to user_video_path(@user, video) do %>
-                      <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
-                    <% end %>
+                  <div class="padding-horizontal-mini padding-vertical-mini border-top">
+                    <div class="video-title">
+                      <%= link_to video.title, user_video_path(@user, video) %>
+                    </div>
 
-                    <div class="padding-horizontal-mini padding-vertical-mini border-top">
-                      <div class="video-title">
-                        <%= link_to video.title, user_video_path(@user, video) %>
-                      </div>
-
-                      <div class="mini-text">
-                        <div class="flex">
-                          <div class="forty-eight">
-                            <%= @user.profile.display_name.presence || @user.username %>
-                          </div>
-                          <div class="forty-eight right">
-                            <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
-                          </div>
+                    <div class="mini-text">
+                      <div class="flex">
+                        <div class="forty-eight">
+                          <%= @user.profile.display_name.presence || @user.username %>
+                        </div>
+                        <div class="forty-eight right">
+                          <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
                         </div>
                       </div>
                     </div>
                   </div>
-                <% end %>
-              </div>
-            <% else %>
-              There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
-            <% end %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
+          <% end %>
 
-          </div>
         </div>
       </main>
     </div>

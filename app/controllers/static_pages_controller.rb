@@ -5,6 +5,8 @@ class StaticPagesController < ApplicationController
       @subscriptions = current_user.feed
       @subscribing = current_user.subscribing
     end
+    @users = User.popular
+    @videos = Video.popular
   end
 
   def privacy

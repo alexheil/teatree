@@ -88,7 +88,7 @@
       <div class="flex padding-vertical-large">
         <aside class="sidebar">
           <ul>
-            <% User.all.each do |user| %>
+            <% @users.each do |user| %>
               <%= link_to user_path(user) do %>
                 <li class="inactive-sidebar-tab"><%= user.profile.display_name.presence || user.username %>
                 <% end %>
@@ -101,7 +101,7 @@
             You are not signed in... yet, but here are some awesome videos for you to watch.
           </div>
           <div class="flex">
-            <% Video.all.each do |video| %>
+            <% @videos.each do |video| %>
               <div class="twenty-four border">
 
                 <%= link_to user_video_path(video.user, video) do %>

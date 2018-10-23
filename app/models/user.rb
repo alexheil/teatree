@@ -2,6 +2,8 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :username, use: :slugged
 
+  scope :popular, -> {select("users.id, users.slug, users.username, count(subscriptions.id) subscriptions_count").joins(:subscribers).group("users.id").reorder("subscriptions_count desc").limit(25)}
+
   validates :username, presence: true, uniqueness: true, length: { maximum: 50 }, format: { with: /\A[a-zA-Z0-9]+\Z/i }
   validate :validate_username
 

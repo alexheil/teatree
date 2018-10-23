@@ -8,7 +8,7 @@ class Users::VideosController < ApplicationController
   before_action :member, only: [:new, :create]
 
   def search
-    @videos = Video.search(params[:search]).order("created_at DESC").page params[:page]
+    @videos = Video.search(params[:search]).order("view_count DESC").page params[:page]
   end
 
   def show
