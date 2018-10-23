@@ -30,17 +30,17 @@
               <% if current_user.subscribing?(@user) %>
                 <%= form_for(current_user.active_subscriptions.find_by(subscribed_id: @user.id),
                          html: { method: :delete }) do |f| %>
-                  <%= f.submit "Unsubscribe", data: { confirm: "Are you sure?" }, class: "submit-button" %>
+                  <%= f.submit "Stop supporting #{@user.profile.display_name.presence || @user.username}", data: { confirm: "Are you sure?" }, class: "submit-button" %>
                 <% end %>
               <% else %>
                 <%= form_for(current_user.active_subscriptions.build) do |f| %>
                   <div><%= hidden_field_tag :subscribed_id, @user.id %></div>
-                  <%= f.submit "Subscribe - #{@user.plan.amount} #{@user.plan.currency} per month", data: { confirm: "Just double checking... because your current card will be charged right now." }, class: "submit-button" %>
+                  <%= f.submit "Support #{@user.profile.display_name.presence || @user.username} - #{@user.plan.amount} #{@user.plan.currency} per month", data: { confirm: "Just double checking... because your current card will be charged right now." }, class: "submit-button" %>
                 <% end %>
               <% end %>
             <% else %>
               <div class="copy-button">
-                No subscription available
+                No support option available
               </div>
             <% end %>
           <% else %>
@@ -59,7 +59,7 @@
         <% else %>
           <%= link_to sign_in_path do %>
             <div class="fake-button link-color">
-              Sign in to subscribe
+              Sign in to support <%= @user.profile.display_name.presence || @user.username %>
             </div>
           <% end %>
         <% end %>
@@ -92,7 +92,7 @@
           <% end %>
            | 
         <% end %>
-        <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Subscriber") %>
+        <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Supporters") %>
       </div>
 
       <div class="padding-bottom">
