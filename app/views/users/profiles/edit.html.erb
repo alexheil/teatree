@@ -30,7 +30,7 @@
             <div class="field">
               <img class="thumbnail-image" src="<%= @user.profile.image_url(:thumb) %>">
             </div>
-            <div class="flex border-bottom">
+            <div class="flex">
               <div class="field-two-column center">
                 <label class="image-button" for="profile-image">Upload a profile image</label>
                 <%= f.hidden_field :image, value: @profile.cached_image_data %>
