@@ -5,7 +5,7 @@ class Users::SourcesController < ApplicationController
   def edit
     @user = current_user
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     @customer = Stripe::Customer.retrieve(@user.customer_id)
 
@@ -22,7 +22,7 @@ class Users::SourcesController < ApplicationController
       redirection = Base64.decode64(params[:url].to_s)
     end
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     customer = Stripe::Customer.retrieve(@user.customer_id)
 

@@ -12,7 +12,7 @@ class Users::MembershipsController < ApplicationController
 
   def create
    
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     # find customer
     customer = Stripe::Customer.retrieve(@user.customer_id)
@@ -58,7 +58,7 @@ class Users::MembershipsController < ApplicationController
       current_id: params[:membership][:membership_type] + "_id"
     )
    
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     # find customer
     customer = Stripe::Customer.retrieve(@user.customer_id)
@@ -92,7 +92,7 @@ class Users::MembershipsController < ApplicationController
   def destroy
     @membership = @user.membership
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     subscription = Stripe::Subscription.retrieve(@membership.stripe_subscription_id)
 

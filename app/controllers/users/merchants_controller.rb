@@ -11,7 +11,7 @@ class Users::MerchantsController < ApplicationController
 
   def create
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     @account = Stripe::Account.create(
       type: 'custom',
@@ -57,7 +57,7 @@ class Users::MerchantsController < ApplicationController
   def edit
     @merchant = @user.merchant
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     @account = Stripe::Account.retrieve(@merchant.stripe_id)
   end
@@ -65,7 +65,7 @@ class Users::MerchantsController < ApplicationController
   def update
     @merchant = @user.merchant
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     account = Stripe::Account.retrieve(@merchant.stripe_id)
 

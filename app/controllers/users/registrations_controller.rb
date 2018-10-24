@@ -15,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     @user.create_profile(profile_params)
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     customer = Stripe::Customer.create(
       email: @user.email

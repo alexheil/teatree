@@ -10,7 +10,7 @@ class Users::PlansController < ApplicationController
     if user_signed_in? && current_user.merchant.present?
       @plan = Plan.new
 
-      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
     
     elsif user_signed_in? && current_user.merchant.nil?
       redirect_to new_user_merchant_path(current_user)
@@ -21,7 +21,7 @@ class Users::PlansController < ApplicationController
   end
 
   def create
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     plan = Stripe::Plan.create({
       amount: (params[:plan][:amount].to_i * 100).to_s,
@@ -66,7 +66,7 @@ class Users::PlansController < ApplicationController
   def update
     @plan = @user.plan
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     plan = Stripe::Plan.retrieve(@user.plan.plan_id, stripe_account: @user.merchant.stripe_id)
     plan.delete
@@ -105,7 +105,7 @@ class Users::PlansController < ApplicationController
   def destroy
     @plan = @user.plan
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     plan = Stripe::Plan.retrieve(@plan.plan_id, stripe_account: @user.merchant.stripe_id)
     product = Stripe::Product.retrieve(@plan.product_id, stripe_account: @user.merchant.stripe_id)

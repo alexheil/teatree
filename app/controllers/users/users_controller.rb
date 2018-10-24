@@ -35,7 +35,7 @@ class Users::UsersController < ApplicationController
   def subscribers
     @user = User.friendly.find(params[:user_id])
     @subscribers = @user.subscribers
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
   end
 
   private

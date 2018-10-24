@@ -7,7 +7,7 @@ class Users::SubscriptionsController < ApplicationController
     @subscriber = current_user
     @subscribed = User.friendly.find(params[:subscribed_id])
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
     customer = Stripe::Customer.retrieve(@subscriber.customer_id)
 
     token = Stripe::Token.create({
@@ -52,7 +52,7 @@ class Users::SubscriptionsController < ApplicationController
     @subscribed = Subscription.find(params[:id]).subscribed
     @subscription = Subscription.find(params[:id])
 
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
     subscription = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id, stripe_account: @subscribed.merchant.stripe_id)
 
@@ -71,7 +71,7 @@ class Users::SubscriptionsController < ApplicationController
     def check_default_source
       @subscribed = User.friendly.find(params[:subscribed_id])
       @subscriber = current_user
-      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
       customer = Stripe::Customer.retrieve(@subscriber.customer_id)
       if customer.default_source.blank?
         url = user_url(@subscribed)

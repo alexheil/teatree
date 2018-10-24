@@ -43,7 +43,7 @@
               </div>
             </div>
           <% else %>
-            <div class="padding-bottom border-bottom">
+            <div class="padding-bottom">
               <label class="image-button" for="profile-image">Upload a profile image</label>
               <%= f.hidden_field :image, value: @profile.cached_image_data %>
               <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
