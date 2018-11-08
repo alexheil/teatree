@@ -28,7 +28,6 @@ class Users::VideosController < ApplicationController
     @video = @user.videos.build(video_params)
     if @video.save
       flash[:notice] = "You just created " + @video.title + "!"
-      puts Time.zone.now.yesterday.beginning_of_day
       redirect_to user_video_path(@user, @video)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
