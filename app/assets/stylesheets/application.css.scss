@@ -307,6 +307,16 @@ video {
   -webkit-backface-visibility: hidden;
 }
 
+.category-thumbnail-image {
+  height: 31vh;
+  width: 100%;
+  border-radius: $radius;
+  object-fit: cover;
+  display: none;
+  opacity: .5;
+  -webkit-backface-visibility: hidden;
+}
+
 .thumbnail-image-mini {
   height: 13vw;
   width: 13vw;
