@@ -124,8 +124,8 @@
         </ul>
       </aside>
 
-      <main class="content">
-        <div id="first-tab">
+      <main class="video-content">
+        <div id="first-tab" class="form-border">
             <% if user_signed_in? %>
               <% if current_user.subscribing?(@user) || current_user == @user %>
                 <%= form_for(@comment, url: user_video_comments_path(@user, @video)) do |f| %>
@@ -162,33 +162,37 @@
         <div id="second-tab">
 
           <% if @user.videos.any? %>
-            <div class="flex">
-              <% @user.videos.newest.each do |video| %>
-                <div class="twenty-four border">
+            <% @user.videos.newest.each do |video| %>
+              <div class="video-border">
+                <div class="flex">
+                  <div class="twenty-four border-right">
 
-                  <%= link_to user_video_path(@user, video) do %>
-                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
-                  <% end %>
+                    <%= link_to user_video_path(@user, video) do %>
+                      <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                    <% end %>
 
-                  <div class="padding-horizontal-mini padding-vertical-mini border-top">
-                    <div class="video-title">
-                      <%= link_to video.title, user_video_path(@user, video) %>
-                    </div>
+                  </div>
 
-                    <div class="mini-text">
-                      <div class="flex">
-                        <div class="forty-eight">
-                          <%= @user.profile.display_name.presence || @user.username %>
-                        </div>
-                        <div class="forty-eight right">
-                          <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
-                        </div>
+                  <div class="seventy-five">
+
+                    <div class="padding-horizontal-mini padding-vertical-mini">
+                      <div class="mid-text">
+                        <%= link_to truncate(video.title, length: 50), user_video_path(@user, video) %>
+                      </div>
+
+                      <div class="mini-text">
+                        <%= @user.profile.display_name.presence || @user.username %> posted <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                      </div>
+
+                      <div>
+                        <%= truncate(video.description, length: 140) %>
                       </div>
                     </div>
+
                   </div>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% else %>
             There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
           <% end %>

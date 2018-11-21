@@ -39,7 +39,6 @@ $mid: 2em;
   }
 }
 
-
 @mixin textLabels {
   font-size: .75em;
   font-weight: 700;
@@ -286,17 +285,18 @@ video {
   border-radius: $radius;
 }
 
+.video-border {
+  box-shadow: $shadow-lite;
+  border-radius: $radius;
+  background: $white;
+  margin-bottom: 1vh;
+}
+
 .video-player {
   border: 1px solid $border;
   border-radius: $radius;
   display: none;
   background: $black;
-}
-
-.video-title {
-  min-height: 5vh;
-  max-height: 5vh;
-  overflow: hidden;
 }
 
 .thumbnail-image {
@@ -337,8 +337,8 @@ video {
   object-fit: cover;
   display: block;
   border-top-left-radius: $radius - 1;
-  border-top-right-radius: $radius - 1;
-  border-bottom-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: $radius - 1;
   border-bottom-right-radius: 0px;
   -webkit-backface-visibility: hidden;
   display: none;
@@ -476,6 +476,10 @@ video {
   border-bottom: 1px solid $border;
 }
 
+.border-right {
+  border-right: 1px solid $border;
+}
+
 .border {
   border: 1px solid $border;
   border-radius: $radius;
@@ -502,9 +506,15 @@ video {
 }
 
 .content {
-  @include coolborder;
   margin: 0;
   width: 75%;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.video-content {
+  margin: 0;
+  width: 77%;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -531,7 +541,7 @@ video {
 }
 
 .twenty-four {
-  margin: 0 0 1vh 0;
+  margin: 0 0 0 0;
   width: 24%;
   display: inline-block;
   vertical-align: bottom;
@@ -579,6 +589,13 @@ video {
 .seventy-three {
   margin: 0;
   width: 73%;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.seventy-five {
+  margin: 0;
+  width: 75%;
   display: inline-block;
   vertical-align: bottom;
 }
@@ -1502,12 +1519,6 @@ select {
     margin-right: 1vw;
     padding: 2vh 2vw;
     text-align: center;
-  }
-
-  .video-title {
-    min-height: 7vh;
-    max-height: 7vh;
-    overflow: hidden;
   }
 
   @mixin javaScriptForms {
