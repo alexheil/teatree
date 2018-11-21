@@ -26,15 +26,15 @@
           <div class="padding-bottom-large">
             <label class="image-button" for="course-image">Upload a thumbnail</label>
             <%= f.hidden_field :image, value: @video.cached_image_data %>
-            <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
-            <div class="file-name"></div>
+            <span class="hidden"><%= f.file_field :image, id: "course-image", class: "course_image" %></span>
+            <div class="file-name-image"></div>
           </div>
           
           <div class="field">
             <label class="image-button" for="video-image">Upload a video</label>
             <%= f.hidden_field :video, value: @video.cached_video_data %>
-            <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
-            <div class="file-name"></div>
+            <span class="hidden"><%= f.file_field :video, id: "video-image", class: "video_image" %></span>
+            <div class="file-name-video"></div>
           </div>
 
           <div class="field">

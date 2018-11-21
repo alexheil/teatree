@@ -44,10 +44,16 @@ $(document).on('turbolinks:load', flashTimeout);
 
 var getFilename = function() {
 
-  $('input[type="file"]').change(function(e){
+  $('input[type="file"].course_image').change(function(e){
     var fileName = e.target.files[0].name;
-    $('.file-name').text(fileName);
-    $('.file-name').addClass('padding-top');
+    $('.file-name-image').text(fileName);
+    $('.file-name-image').addClass('padding-top');
+  });
+
+    $('input[type="file"].video_image').change(function(e){
+    var fileName = e.target.files[0].name;
+    $('.file-name-video').text(fileName);
+    $('.file-name-video').addClass('padding-top');
   });
 
 };
