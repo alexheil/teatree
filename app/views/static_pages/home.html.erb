@@ -53,35 +53,37 @@
             <div>
               You are not subscribed to anyone... yet, but here are some awesome videos for you to watch.
             </div>
-            <div class="flex">
-              <% Video.all.each do |video| %>
-                <div class="twenty-four border">
+            <% Video.all.each do |video| %>
+              <div class="video-border">
+                <div class="flex">
+                  <div class="twenty-four border-right">
 
-                  <%= link_to user_video_path(video.user, video) do %>
-                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
-                  <% end %>
+                    <%= link_to user_video_path(video.user, video) do %>
+                      <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
+                    <% end %>
 
-                  <div class="padding-horizontal-mini padding-vertical-mini border-top">
-                    <div class="video-title">
-                      <%= link_to video.title, user_video_path(video.user, video) %>
-                    </div>
+                  </div>
 
-                    <div class="mini-text">
-                      <div class="flex">
-                        <div class="forty-eight">
-                          <%= link_to video.user.profile.display_name.presence || video.user.username, user_path(video.user), class: "black-link" %>
-                        </div>
-                        <div class="forty-eight right">
-                          <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
-                        </div>
+                  <div class="seventy-five">
+
+                    <div class="padding-horizontal-mini padding-vertical-mini">
+                      <div class="mid-text">
+                        <%= link_to truncate(video.title, length: 50), user_video_path(video.user, video) %>
+                      </div>
+
+                      <div class="mini-text">
+                        <%= video.user.profile.display_name.presence || video.user.username %> posted <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
+                      </div>
+
+                      <div>
+                        <%= truncate(video.description, length: 140) %>
                       </div>
                     </div>
-                  </div>
-                  
 
+                  </div>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           <% end %>
         </main>
       </div>
