@@ -1384,6 +1384,10 @@ select {
     width: 49%;
   }
 
+  .thumbnail-image-feed-four {
+    height: 30vw;
+  }
+
   @mixin javaScriptForms {
     min-width: 60%;
     max-width: 60%;
@@ -1509,7 +1513,7 @@ select {
   }
 
   .thumbnail-image-feed-four {
-    height: 20vw;
+    height: 35vw;
     border-top-right-radius: $radius - 1;
     border-bottom-left-radius: 0px;
   }
