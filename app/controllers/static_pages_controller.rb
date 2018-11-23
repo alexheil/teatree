@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
       @subscriptions = current_user.feed
       @subscribing = current_user.subscribing
     end
-    @users = User.popular
+    @users = User.all
     @videos = Video.popular
   end
 
