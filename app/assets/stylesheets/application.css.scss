@@ -1508,6 +1508,12 @@ select {
     width: 100%;
   }
 
+  .thumbnail-image-feed-four {
+    height: 20vw;
+    border-top-right-radius: $radius - 1;
+    border-bottom-left-radius: 0px;
+  }
+
   .active-sidebar-tab {
     text-align: center;
     padding: 2vh 2vw;
