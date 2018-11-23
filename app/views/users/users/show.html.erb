@@ -41,7 +41,7 @@
           <% @user.videos.newest.each do |video| %>
             <div class="video-border">
               <div class="flex">
-                <div class="twenty-four border-right">
+                <div class="twenty-four">
 
                   <%= link_to user_video_path(@user, video) do %>
                     <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
