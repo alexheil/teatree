@@ -1444,7 +1444,7 @@ select {
   }
 
   .twenty-four {
-    width: 49%;
+    width: 100%;
   }
 
   .twenty-five {
@@ -1464,6 +1464,10 @@ select {
   }
 
   .seventy-three {
+    width: 100%;
+  }
+
+  .seventy-five {
     width: 100%;
   }
 
@@ -1502,6 +1506,10 @@ select {
     width: 100%;
     display: inline-block;
     vertical-align: bottom;
+  }
+
+  .video-content {
+    width: 100%;
   }
 
   .active-sidebar-tab {
