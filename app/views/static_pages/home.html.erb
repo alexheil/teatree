@@ -11,7 +11,14 @@
                 <li class="inactive-sidebar-tab"><%= link_to user.profile.display_name.presence || user.username, user_path(user) %>
               <% end %>
             <% else %>
-              You are not subscribed to anyone... yet.
+              <div>
+                You are not subscribed to anyone... yet. Here are some people you might like.
+              </div>
+              <% @users.each do |user| %>
+                <%= link_to user_path(user) do %>
+                  <li class="inactive-sidebar-tab"><%= user.profile.display_name.presence || user.username %>
+                  <% end %>
+              <% end %>
             <% end %>
           </ul>
         </aside>
