@@ -17,6 +17,11 @@
           <%= link_to user_subscriptions_path(@user), class: "link-color" do %>
             <li class="active-sidebar-tab">Subscriptions</li>
           <% end %>
+          <% if user_signed_in? && @user == current_user && @user.saves.any? %>
+            <%= link_to user_saves_path(@user), class: "link-black" do %>
+              <li class="inactive-sidebar-tab">Saves</li>
+            <% end %>
+          <% end %>
         </ul>
       </aside>
 

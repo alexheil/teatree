@@ -31,11 +31,13 @@ Rails.application.routes.draw do
     resource :merchant, controller: 'users/merchants', only: [:new, :create, :edit, :update]
     resource :plan, controller: 'users/plans', except: [:show, :index]
     resources :videos, controller: 'users/videos', except: :index do
+      resources :saves, controller: 'users/saves', only: [:create, :destroy]
       resources :comments, controller: 'users/comments', only: [:create, :update, :destroy]
     end
     get 'about' => 'users/users#about'
     get 'subscriptions' => 'users/users#subscriptions'
     get 'subscribers' => 'users/users#subscribers'
+    get 'saves' => 'users/users#saves'
   end
 
   resources :subscriptions, controller: 'users/subscriptions', only: [:create, :destroy]

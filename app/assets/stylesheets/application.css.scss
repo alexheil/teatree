@@ -299,6 +299,13 @@ video {
   background: $black;
 }
 
+.video-player-main {
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+  display: none;
+  background: $black;
+}
+
 .thumbnail-image {
   height: 31vh;
   width: 100%;
@@ -580,7 +587,6 @@ video {
 }
 
 .sixty {
-  @include coolborder;
   margin: 0 auto;
   width: 60%;
   vertical-align: top;
@@ -1129,6 +1135,9 @@ select {
   padding: .51vh .51vw;
   background: $dark;
   border: 1px solid $dark;
+  &:hover {
+    color: $white;
+  }
 }
 
 .search-container {
@@ -1387,7 +1396,6 @@ select {
   .thumbnail-image-feed-four {
     height: 22vw;
   }
-  
 
   @mixin javaScriptForms {
     min-width: 60%;

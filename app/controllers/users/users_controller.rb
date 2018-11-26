@@ -38,6 +38,10 @@ class Users::UsersController < ApplicationController
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
   end
 
+  def saves
+    @user = User.friendly.find(params[:user_id])
+  end
+
   private
 
     def correct_user

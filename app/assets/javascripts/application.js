@@ -381,6 +381,7 @@ var imageLoading = function() {
   $('.thumbnail-image-mini').fadeIn(1000);
   $('.thumbnail-image').fadeIn(1000);
   $('.video-player').fadeIn(1000);
+  $('.video-player-main').fadeIn(1000);
   $('.thumbnail-image-category').fadeIn(1000);
   $('.category-image-container').fadeIn(1000);
   $('.thumbnail-image-home').fadeIn(1000);

@@ -1,0 +1,68 @@
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("\n's Saves")) %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <%= render 'users/partials/nameplate' %>
+
+    <div class="flex padding-bottom-large">
+      <aside class="sidebar">
+        <ul>
+          <%= link_to user_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Videos</li>
+          <% end %>
+          <%= link_to user_about_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Description</li>
+          <% end %>
+          <%= link_to user_subscriptions_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Subscriptions</li>
+          <% end %>
+          <% if user_signed_in? && @user == current_user && @user.saves.any? %>
+            <%= link_to user_saves_path(@user), class: "link-color" do %>
+              <li class="active-sidebar-tab">Saves</li>
+            <% end %>
+          <% end %>
+        </ul>
+      </aside>
+
+      <main class="video-content">
+        <% if @user.saves.any? %>
+          <% @user.saves.newest.each do |save| %>
+            <div class="video-border">
+              <div class="flex">
+                <div class="twenty-four">
+
+                  <%= link_to user_video_path(save.video.user, save.video) do %>
+                    <img class="thumbnail-image-feed-four" src="<%= save.video.image_url(:thumb) %>">
+                  <% end %>
+
+                </div>
+
+                <div class="seventy-five">
+
+                  <div class="padding-horizontal-mini padding-vertical-mini">
+                    <div class="mid-text">
+                      <%= link_to truncate(save.video.title, length: 50), user_video_path(save.video.user, save.video) %>
+                    </div>
+
+                    <div class="mini-text">
+                      <%= save.video.user.profile.display_name.presence || save.video.user.username %> posted <%= remove_unwanted_words time_ago_in_words(save.video.created_at) %> ago
+                    </div>
+
+                    <div>
+                      <%= truncate(save.video.description, length: 113) %>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          You have not saved any videos... yet. <%= link_to "Let's find some.", categories_path if @user == current_user %>
+        <% end %>
+      </main>
+    </div>
+
+  </div>
+</div>

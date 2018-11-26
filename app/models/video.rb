@@ -17,6 +17,7 @@ class Video < ApplicationRecord
   belongs_to :subcategory, optional: true
 
   has_many :comments, dependent: :destroy
+  has_many :saves, class_name: 'Save', dependent: :destroy
 
   validates :category_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }

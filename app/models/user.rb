@@ -23,8 +23,10 @@ class User < ApplicationRecord
   has_many :passive_subscriptions, class_name: "Subscription", foreign_key: "subscribed_id", dependent: :destroy
   has_many :subscribing, through: :active_subscriptions,  source: :subscribed
   has_many :subscribers, through: :passive_subscriptions, source: :subscriber
+  
   has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :saves, class_name: 'Save', dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username
@@ -61,6 +63,19 @@ class User < ApplicationRecord
     subscribing_ids = "SELECT subscribed_id FROM subscriptions WHERE  subscriber_id = :user_id"
     Video.where("user_id IN (#{subscribing_ids}) OR user_id = :user_id", user_id: id)
   end
+
+  def saved?(video)
+    Save.exists? user_id: id, video_id: video.id
+  end
+
+  def unsave(video)
+    Save.find_by(user_id: id, video_id: video.id).destroy
+  end
+
+  def save_id(video)
+    Save.find_by(user_id: id, video_id: video.id).id
+  end
+
 
   private
 

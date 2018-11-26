@@ -1,0 +1,17 @@
+<% if user_signed_in? && current_user.saved?(@video) %>
+  <div class="padding-bottom-mini">
+    <%= link_to "Unsave", user_video_safe_path(@user, @video, current_user.save_id(@video)), method: :delete, remote: true, class: "fake-button-dark" %>
+  </div>
+<% elsif user_signed_in? %>
+  <div class="padding-bottom-mini">
+    <%= link_to "Save", user_video_saves_path(@user, @video), :method => :post, remote: true, class: "fake-button-dark" %>
+  </div>
+<% else %>
+  <div class="padding-bottom-mini">
+    <%= link_to(sign_in_path) do %>
+      <div class="fake-button-dark">
+        Save
+      </div>
+    <% end %>
+  </div>
+<% end %>

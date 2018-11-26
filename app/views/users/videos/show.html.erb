@@ -83,9 +83,15 @@
       </div>
 
       <div class="thirteen form-border">
+        
+        <%= pluralize(@video.view_count, "view") %>
+
         <div class="padding-bottom-mini">
-          <%= pluralize(@video.view_count, "view") %>
+          <span class="saves_count"><%= render 'users/partials/saves/saves_count' %></span>
         </div>
+
+        <span class="saves_button"><%= render 'users/partials/saves/saves_button' %></span>
+
         <div id="share-button-click" class="fake-button-dark">
           Share
         </div>

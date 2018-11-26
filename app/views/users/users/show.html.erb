@@ -9,12 +9,12 @@
 
     <% if @user.videos.any? %>
       <div class="padding-bottom-large">
-        <div class="sixty">
-          <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+        <div class="sixty video-border">
+          <video class="video-player-main" width="100%" height="auto" controls controlslist="nodownload">
             <source src="<%= @user.videos.last.video_url %>">
             Your browser does not support this video.
           </video>
-          <div class="padding-top mid-text">
+          <div class="padding-horizontal padding-vertical mid-text">
             <%= link_to @user.videos.last.title, user_video_path(@user, @user.videos.last) %>
           </div>
         </div>
@@ -32,6 +32,11 @@
           <% end %>
           <%= link_to user_subscriptions_path(@user), class: "link-black" do %>
             <li class="inactive-sidebar-tab">Subscriptions</li>
+          <% end %>
+          <% if user_signed_in? && @user == current_user && @user.saves.any? %>
+            <%= link_to user_saves_path(@user), class: "link-black" do %>
+              <li class="inactive-sidebar-tab">Saves</li>
+            <% end %>
           <% end %>
         </ul>
       </aside>
