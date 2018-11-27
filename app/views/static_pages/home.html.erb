@@ -24,7 +24,7 @@
         </aside>
 
         <main class="video-content">
-          <% if @follows.any? %>
+          <% if @following.any? %>
             <% @follows.each do |video| %>
               <div class="video-border">
                 <div class="flex">

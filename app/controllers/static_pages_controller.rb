@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def home
     if user_signed_in?
-      @follows = current_user.feed.page params[:page]
+      @follows = current_user.feed.newest.page params[:page]
       @following = current_user.following
     end
     @users = User.all
