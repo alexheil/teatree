@@ -6,13 +6,13 @@
       <div class="flex padding-vertical-large">
         <aside class="sidebar">
           <ul>
-            <% if @subscribing.any? %>
-              <% @subscribing.each do |user| %>
+            <% if @following.any? %>
+              <% @following.each do |user| %>
                 <li class="inactive-sidebar-tab"><%= link_to user.profile.display_name.presence || user.username, user_path(user) %>
               <% end %>
             <% else %>
               <div>
-                You are not subscribed to anyone... yet. Here are some people you might like.
+                You are not following anyone... yet. Here are some people you might like.
               </div>
               <% @users.each do |user| %>
                 <%= link_to user_path(user) do %>
@@ -24,8 +24,8 @@
         </aside>
 
         <main class="video-content">
-          <% if @subscriptions.any? %>
-            <% @subscriptions.each do |video| %>
+          <% if @follows.any? %>
+            <% @follows.each do |video| %>
               <div class="video-border">
                 <div class="flex">
                   <div class="twenty-four">
@@ -57,7 +57,7 @@
               </div>
             <% end %>
 
-            <%= paginate @subscriptions %>
+            <%= paginate @follows %>
 
           <% else %>
             <div class="padding-bottom">
