@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
       @subscribing = current_user.subscribing
     end
     @users = User.all
-    @videos = Video.popular
+    @videos = Video.popular.page params[:page]
   end
 
   def privacy

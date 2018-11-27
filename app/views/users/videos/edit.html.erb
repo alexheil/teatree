@@ -34,13 +34,13 @@
               <img class="thumbnail-image" src="<%= @video.image_url(:thumb) %>">
             </div>
             <div class="flex">
-              <div class="field-two-column center">
+              <div class="field-two-column-bottom center">
                 <label class="image-button" for="profile-image">Upload a thumbnail</label>
                 <%= f.hidden_field :image, value: @video.cached_image_data %>
                 <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
                 <div class="file-name"></div>
               </div>
-              <div class="field-two-column center">
+              <div class="field-two-column-bottom center">
                 <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
                 <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
               </div>
