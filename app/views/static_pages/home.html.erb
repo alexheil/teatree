@@ -56,6 +56,9 @@
                 </div>
               </div>
             <% end %>
+
+            <%= paginate @subscriptions %>
+
           <% else %>
             <div class="padding-bottom">
               You are not subscribed to anyone... yet, but here are some awesome videos for you to watch.
@@ -91,6 +94,9 @@
                 </div>
               </div>
             <% end %>
+
+            <%= paginate @videos %>
+
           <% end %>
         </main>
       </div>

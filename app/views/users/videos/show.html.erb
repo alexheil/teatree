@@ -173,8 +173,8 @@
 
         <div id="second-tab">
 
-          <% if @user.videos.any? %>
-            <% @user.videos.newest.each do |video| %>
+          <% if @videos.any? %>
+            <% @videos.each do |video| %>
               <div class="video-border">
                 <div class="flex">
                   <div class="twenty-four">

@@ -7,6 +7,7 @@ class Users::UsersController < ApplicationController
   def show
     @owner = User.friendly.find(1)
     @user = User.friendly.find(params[:id])
+    @videos = @user.videos.page params[:page]
     if user_signed_in?
       @subscription = Subscription.new
     end

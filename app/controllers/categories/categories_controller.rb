@@ -9,7 +9,7 @@ class Categories::CategoriesController < ApplicationController
   def show
     @category = Category.friendly.find(params[:id])
     @subcategories = @category.subcategories
-    @videos = @category.videos
+    @videos = @category.videos.page params[:page]
   end
 
   def new

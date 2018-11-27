@@ -42,8 +42,8 @@
       </aside>
 
       <main class="video-content">
-        <% if @user.videos.any? %>
-          <% @user.videos.newest.each do |video| %>
+        <% if @videos.any? %>
+          <% @videos.newest.each do |video| %>
             <div class="video-border">
               <div class="flex">
                 <div class="twenty-four">
@@ -74,6 +74,9 @@
               </div>
             </div>
           <% end %>
+
+          <%= paginate @videos %>
+          
         <% else %>
           There are no videos... yet. <%= link_to "Add one?", new_user_video_path(current_user) if @user == current_user %>
         <% end %>

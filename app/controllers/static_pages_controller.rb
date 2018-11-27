@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
 
   def home
     if user_signed_in?
-      @subscriptions = current_user.feed
+      @subscriptions = current_user.feed.page params[:page]
       @subscribing = current_user.subscribing
     end
     @users = User.all
