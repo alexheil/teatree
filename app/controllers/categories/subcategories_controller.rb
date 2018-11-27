@@ -6,7 +6,7 @@ class Categories::SubcategoriesController < ApplicationController
     @category = Category.friendly.find(params[:category_id])
     @subcategory = Subcategory.friendly.find(params[:id])
     @subcategories = @category.subcategories
-    @videos = @subcategory.videos.page params[:page]
+    @videos = @subcategory.videos.popular.page params[:page]
   end
 
   def new
