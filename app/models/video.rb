@@ -7,7 +7,7 @@ class Video < ApplicationRecord
   include VideoUploader[:video]
   include ImageUploader[:image]
 
-  scope :popular, -> { order('view_count DESC').limit(32) }
+  scope :popular, -> { order('view_count DESC') }
   scope :newest, -> { order("created_at DESC") }
 
   enum policy_type: [:free, :premium]
