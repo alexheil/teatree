@@ -8,27 +8,23 @@
     <div class="padding-vertical-large">
 
       <% if @video.free? %>
-        <div class="flex">
-          <div class="eighty-three">
-            <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
-              <source src="<%= @video.video_url %>">
-              Your browser does not support this video.
-            </video>
-          </div>
 
-          <div class="fifteen">
-            <div class="blackbox">
-              <%= render 'partials/ad_trash' %>
-            </div>
-          </div>
-        </div>
+        <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
+          <source src="<%= @video.video_url %>">
+          Your browser does not support this video.
+        </video>
+
       <% else %>
+
         <% if user_signed_in? && (current_user.subscribing?(@user)) || (current_user == @user) %>
+
           <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
             <source src="<%= @video.video_url %>">
             Your browser does not support this video.
           </video>
+
         <% else %>
+
           <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
             <source src="">
             Your browser does not support this video.
@@ -36,7 +32,9 @@
           <div class="padding-top">
             This is a premium video. You must be subscribed to <%= link_to @user.profile.display_name.presence || @user.username, user_path(@user) %> to view this content.
           </div>
+
         <% end %>
+
       <% end %>
 
       <% if current_user == @user %>
@@ -64,6 +62,14 @@
       <% end %>
 
     </div>
+
+    <% if @video.free? %>
+      <div class="padding-vertical-large">
+        <div class="blackbox center">
+          <%= render 'partials/ad_trash' %>
+        </div>
+      </div>
+    <% end %>
 
     <div class="flex">
       <div class="eighty-one form-border">
