@@ -23,6 +23,11 @@ class User < ApplicationRecord
   has_many :passive_subscriptions, class_name: "Subscription", foreign_key: "subscribed_id", dependent: :destroy
   has_many :subscribing, through: :active_subscriptions,  source: :subscribed
   has_many :subscribers, through: :passive_subscriptions, source: :subscriber
+
+  has_many :active_follows, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
+  has_many :passive_follows, class_name: "Follow", foreign_key: "followed_id", dependent: :destroy
+  has_many :following, through: :active_follows,  source: :followed
+  has_many :followers, through: :passive_follows, source: :follower
   
   has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -59,9 +64,21 @@ class User < ApplicationRecord
     subscribing.include?(other_user)
   end
 
+  def follow(other_user)
+    following << other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
   def feed
-    subscribing_ids = "SELECT subscribed_id FROM subscriptions WHERE  subscriber_id = :user_id"
-    Video.where("user_id IN (#{subscribing_ids}) OR user_id = :user_id", user_id: id)
+    following_ids = "SELECT followed_id FROM follows WHERE follower_id = :user_id"
+    Video.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
 
   def saved?(video)

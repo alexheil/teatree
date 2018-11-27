@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get 'saves' => 'users/users#saves'
   end
 
+  resources :follows, controller: 'users/follows', only: [:create, :destroy]
   resources :subscriptions, controller: 'users/subscriptions', only: [:create, :destroy]
   resources :categories, controller: 'categories/categories' do
     resources :subcategories, controller: 'categories/subcategories', except: :index

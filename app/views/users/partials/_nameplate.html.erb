@@ -23,46 +23,57 @@
     </div>
 
     <div class="seventy-three">
-      <div class="padding-bottom">
-        <% if user_signed_in? %>
-          <% if current_user != @user %>
-            <% if @user.plan.present? %>
-              <% if current_user.subscribing?(@user) %>
-                <%= form_for(current_user.active_subscriptions.find_by(subscribed_id: @user.id),
-                         html: { method: :delete }) do |f| %>
-                  <%= f.submit "Stop supporting #{@user.profile.display_name.presence || @user.username}", data: { confirm: "Are you sure?" }, class: "submit-button" %>
+
+      <div class="flex">
+
+        <div class="forty-eight">
+          <span class="follows_button"><%= render 'users/partials/follows/follows_button' %></span>
+        </div>
+
+        <div class="forty-eight">
+          <div class="padding-bottom">
+            <% if user_signed_in? %>
+              <% if current_user != @user %>
+                <% if @user.plan.present? %>
+                  <% if current_user.subscribing?(@user) %>
+                    <%= form_for(current_user.active_subscriptions.find_by(subscribed_id: @user.id),
+                             html: { method: :delete }) do |f| %>
+                      <%= f.submit "Stop supporting #{@user.profile.display_name.presence || @user.username}", data: { confirm: "Are you sure?" }, class: "submit-button" %>
+                    <% end %>
+                  <% else %>
+                    <%= form_for(current_user.active_subscriptions.build) do |f| %>
+                      <div><%= hidden_field_tag :subscribed_id, @user.id %></div>
+                      <%= f.submit "Support #{@user.profile.display_name.presence || @user.username} - #{@user.plan.amount} #{@user.plan.currency} per month", data: { confirm: "Just double checking... because your current card will be charged right now." }, class: "submit-button" %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <div class="copy-button">
+                    No support option available
+                  </div>
                 <% end %>
               <% else %>
-                <%= form_for(current_user.active_subscriptions.build) do |f| %>
-                  <div><%= hidden_field_tag :subscribed_id, @user.id %></div>
-                  <%= f.submit "Support #{@user.profile.display_name.presence || @user.username} - #{@user.plan.amount} #{@user.plan.currency} per month", data: { confirm: "Just double checking... because your current card will be charged right now." }, class: "submit-button" %>
+                <% if current_user.plan.present?  %>
+                  <div class="copy-button link-color">
+                    Your plan is <%= current_user.plan.amount %> <%= current_user.plan.currency %>
+                  </div>
+                <% else %>
+                  <%= link_to new_user_plan_path(current_user) do %>
+                    <div class="fake-button link-color">
+                      You do not have a plan. Make one?
+                    </div>
+                  <% end %>
                 <% end %>
               <% end %>
             <% else %>
-              <div class="copy-button">
-                No support option available
-              </div>
-            <% end %>
-          <% else %>
-            <% if current_user.plan.present?  %>
-              <div class="copy-button link-color">
-                Your plan is <%= current_user.plan.amount %> <%= current_user.plan.currency %>
-              </div>
-            <% else %>
-              <%= link_to new_user_plan_path(current_user) do %>
+              <%= link_to sign_in_path do %>
                 <div class="fake-button link-color">
-                  You do not have a plan. Make one?
+                  Sign in to support <%= @user.profile.display_name.presence || @user.username %>
                 </div>
               <% end %>
             <% end %>
-          <% end %>
-        <% else %>
-          <%= link_to sign_in_path do %>
-            <div class="fake-button link-color">
-              Sign in to support <%= @user.profile.display_name.presence || @user.username %>
-            </div>
-          <% end %>
-        <% end %>
+          </div>
+        </div>
+
       </div>
 
       <div class="mid-text padding-bottom">
@@ -92,7 +103,7 @@
           <% end %>
            | 
         <% end %>
-        <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Supporters") %>
+        <%= pluralize(@user.videos.count, "Video") %> | <%= pluralize(@user.passive_subscriptions.count, "Supporters") %> | <span class="follows_count"><%= render 'users/partials/follows/follows_count' %></span> | Following <%= @user.active_follows.count %>
       </div>
 
       <div class="padding-bottom">

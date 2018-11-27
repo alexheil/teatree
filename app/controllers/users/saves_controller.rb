@@ -12,7 +12,7 @@ class Users::SavesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to user_video_path(@video.user, @video) }
         format.js { render :action => "saves" }
-        flash.now[:notice] = "You have successfully likeed #{@video.title}!"
+        flash.now[:notice] = "You have successfully saved #{@video.title}!"
       end
     else
       redirect_to user_video_path(@user, @video)
