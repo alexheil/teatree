@@ -1,0 +1,8 @@
+$('#add-container').fadeOut(300);
+$('.back').fadeOut(300);
+$(".wrapper").removeClass("blur");
+$('.flash_js').fadeIn(300);
+$('.flash_js').html('<%=  escape_javascript(render :partial => 'partials/flash') %>');
+setTimeout(function() {
+  $('.flash_js').fadeOut(3000);
+}, 5000);

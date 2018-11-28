@@ -98,6 +98,12 @@
 
         <span class="saves_button"><%= render 'users/partials/saves/saves_button' %></span>
 
+        <div class="padding-bottom-mini">
+          <div id="add-button-click" class="fake-button-dark">
+            Add to Playlist
+          </div>
+        </div>
+
         <div id="share-button-click" class="fake-button-dark">
           Share
         </div>
@@ -223,3 +229,22 @@
     </div>
   </div>
 </div>
+
+<% if user_signed_in? %>
+  <div id="add-container">
+    <div class="popup-form-inside">
+      
+      <%= form_for(@add, url: user_video_adds_path(@user, @video), remote: true) do |f| %>
+
+        <div class="field">
+          <%= f.label :playlist_id %>
+          <%= f.hidden_field :playlist_id %>
+          <%= f.collection_select(:playlist_id, current_user.playlists, :id, :title) %>
+        </div>
+
+        <%= f.submit "Add video", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+      <% end %>
+
+    </div>
+  </div>
+<% end %>

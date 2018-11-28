@@ -16,6 +16,7 @@ class Users::VideosController < ApplicationController
     @video = Video.friendly.find(params[:id])
     @videos = @user.videos.newest.limit(10)
     @comment = Comment.new
+    @add = Add.new
     if @video.free? || (user_signed_in? && (current_user.subscribing?(@user)) || (current_user == @user))
       impressionist(@video)
     end

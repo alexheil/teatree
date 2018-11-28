@@ -69,6 +69,12 @@ var videoClick = function() {
     $(".wrapper").addClass("blur");
   });
 
+  $('#add-button-click').click(function() {
+    $('#add-container').fadeIn(300);
+    $('.back').fadeIn(300);
+    $(".wrapper").addClass("blur");
+  });
+
   $('#share-button-click').click(function() {
     $('#share-container').fadeIn(300);
   });
@@ -76,6 +82,7 @@ var videoClick = function() {
   $('.back').click(function() {
     $('#description-container').fadeOut(300);
     $('#copy-container').fadeOut(300);
+    $('#add-container').fadeOut(300);
     $('.back').fadeOut(300);
     $(".wrapper").removeClass("blur");
   });

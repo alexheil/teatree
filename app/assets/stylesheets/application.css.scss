@@ -1358,6 +1358,10 @@ select {
   @include javaScriptForms;
 }
 
+#add-container {
+  @include javaScriptForms;
+}
+
 #share-container {
   display: none;
   a {
