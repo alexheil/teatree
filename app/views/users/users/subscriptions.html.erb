@@ -14,6 +14,9 @@
           <%= link_to user_about_path(@user), class: "link-black" do %>
             <li class="inactive-sidebar-tab">Description</li>
           <% end %>
+          <%= link_to user_playlists_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Playlists</li>
+          <% end %>
           <%= link_to user_subscriptions_path(@user), class: "link-color" do %>
             <li class="active-sidebar-tab">Subscriptions</li>
           <% end %>

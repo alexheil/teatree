@@ -1,0 +1,82 @@
+<%= provide(:title, sanitize(@user.profile.display_name.presence || @user.username) + raw("\n's Playlists")) %>
+
+<div class="wrapper">
+  <div class="container">
+
+    <%= render 'users/partials/nameplate' %>
+
+    <div class="flex padding-bottom-large">
+      <aside class="sidebar">
+        <ul>
+          <%= link_to user_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Videos</li>
+          <% end %>
+          <%= link_to user_about_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Description</li>
+          <% end %>
+          <%= link_to user_playlists_path(@user), class: "link-color" do %>
+            <li class="active-sidebar-tab">Playlists</li>
+          <% end %>
+          <%= link_to user_subscriptions_path(@user), class: "link-black" do %>
+            <li class="inactive-sidebar-tab">Subscriptions</li>
+          <% end %>
+          <% if user_signed_in? && @user == current_user && @user.saves.any? %>
+            <%= link_to user_saves_path(@user), class: "link-black" do %>
+              <li class="inactive-sidebar-tab">Saves</li>
+            <% end %>
+          <% end %>
+        </ul>
+      </aside>
+
+      <main class="video-content">
+
+        <% if user_signed_in? && @user == current_user %>
+          <div class="padding-bottom-mini">
+            <%= link_to new_user_playlist_path(@user), class: "link-color" do %>
+              <div class="fake-button">
+                Create a playlist
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if @user.playlists.any? %>
+          <% @user.playlists.newest.each do |playlist| %>
+            <div class="video-border">
+              <div class="flex">
+                <div class="twenty-four">
+
+                  <%= link_to user_playlist_path(@user, playlist) do %>
+                    <img class="thumbnail-image-feed-four" src="<%= playlist.image_url(:thumb) %>">
+                  <% end %>
+
+                </div>
+
+                <div class="seventy-five">
+
+                  <div class="padding-horizontal-mini padding-vertical-mini">
+                    <div class="mid-text">
+                      <%= link_to truncate(playlist.title, length: 50), user_playlist_path(@user, playlist) %>
+                    </div>
+
+                    <div class="mini-text">
+                      <%= @user.profile.display_name.presence || @user.username %> posted <%= remove_unwanted_words time_ago_in_words(playlist.created_at) %> ago
+                    </div>
+
+                    <div>
+                      <%= truncate(playlist.description, length: 113) %>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          You have not created any playlists... yet.
+        <% end %>
+      </main>
+    </div>
+
+  </div>
+</div>

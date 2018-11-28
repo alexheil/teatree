@@ -6,7 +6,7 @@ class Playlist < ApplicationRecord
 
   scope :newest, -> { order("created_at DESC") }
 
-  enum policy_type: [:public, :private]
+  enum policy_type: [:open, :closed]
 
   belongs_to :user
 

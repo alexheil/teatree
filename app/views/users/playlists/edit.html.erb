@@ -1,0 +1,67 @@
+<%= provide(:title, "Edit A Playlist") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical-large">
+
+      <div class="mid-text padding-bottom-large center">
+        Edit a playlist
+      </div>
+
+      <div class="padding-bottom form-border">
+        <%= form_for(@playlist, url: user_playlist_path(@user)) do |f| %>
+          <span id="playlist_errors"><%= render 'partials/errors/playlist_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "text-field" %>
+          </div>
+
+          <% if @playlist.image_data? %>
+            <div class="field">
+              <img class="thumbnail-image" src="<%= @user.playlist.image_url(:thumb) %>">
+            </div>
+            <div class="flex">
+              <div class="field-two-column center">
+                <label class="image-button" for="playlist-image">Upload a playlist image</label>
+                <%= f.hidden_field :image, value: @playlist.cached_image_data %>
+                <span class="hidden"><%= f.file_field :image, id: "playlist-image", class: "course_image" %></span>
+                <div class="file-name-image"></div>
+              </div>
+              <div class="field-two-column center">
+                <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+                <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+              </div>
+            </div>
+          <% else %>
+            <div class="padding-bottom">
+              <label class="image-button" for="playlist-image">Upload a playlist image</label>
+              <%= f.hidden_field :image, value: @playlist.cached_image_data %>
+              <span class="hidden"><%= f.file_field :image, id: "playlist-image", class: "course_image" %></span>
+              <div class="file-name-image"></div>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: "text-area" %>
+          </div>
+
+          <div class="flex">
+            <div class="field-two-column-bottom">
+              <label class="active-paid-tab" id="free-tab" for="free">Public</label>
+              <span class="hidden"><%= f.radio_button(:policy_type, "open", id: "free", checked: true) %></span>
+            </div>
+            <div class="field-two-column-bottom">
+              <label class="inactive-paid-tab" id="premium-tab" for="premium">Private</label>
+              <span class="hidden"><%= f.radio_button(:policy_type, "closed", id: "premium") %></span>
+            </div>
+          </div>
+
+          <%= f.submit "Update playlist", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

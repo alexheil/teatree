@@ -31,6 +31,7 @@ class User < ApplicationRecord
   
   has_many :videos, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :playlists, dependent: :destroy
   has_many :saves, class_name: 'Save', dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :username_changed?

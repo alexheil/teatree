@@ -17,7 +17,6 @@ class Users::PlaylistsController < ApplicationController
   def show
     @user = User.friendly.find(params[:user_id])
     @playlist = Playlist.friendly.find(params[:id])
-    @playlists = @playlist.playlists
   end
 
   def new
