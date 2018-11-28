@@ -10,6 +10,9 @@ class Playlist < ApplicationRecord
 
   belongs_to :user
 
+  has_many :adds, dependent: :destroy
+  has_many :videos, through: :adds
+
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :image_data, presence: true, unless: :image_data?
