@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :saves, controller: 'users/saves', only: [:create, :destroy]
       resources :comments, controller: 'users/comments', only: [:create, :update, :destroy]
     end
+    resources :playlists, controller: 'users/playlists'
     get 'about' => 'users/users#about'
     get 'subscriptions' => 'users/users#subscriptions'
     get 'subscribers' => 'users/users#subscribers'
