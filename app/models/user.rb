@@ -94,7 +94,6 @@ class User < ApplicationRecord
     Save.find_by(user_id: id, video_id: video.id).id
   end
 
-
   private
 
     def should_generate_new_friendly_id?

@@ -19,6 +19,18 @@ class Playlist < ApplicationRecord
   validates :description, presence: true, length: { maximum: 5000 }
 
   before_save :generated_slug
+
+  def added?(video)
+    Add.exists? playlist_id: id, video_id: video.id
+  end
+
+  def unadd(video)
+    Add.find_by(playlist_id: id, video_id: video.id).destroy
+  end
+
+  def add_id(video)
+    Add.find_by(playlist_id: id, video_id: video.id).id
+  end
     
   private
 

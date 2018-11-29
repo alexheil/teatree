@@ -271,6 +271,14 @@ a {
   text-align: center;
 }
 
+.remove-text {
+  color: $red;
+  font-size: $mini;
+  &:hover {
+    color: $grey;
+  }
+}
+
 /* **************** IMAGES AND VIDEO *********************** */
 
 img {

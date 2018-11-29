@@ -5,6 +5,43 @@
 
     <%= render 'users/partials/nameplate' %>
 
+    <div class="padding-bottom-large">
+
+      <div class="mid-container">
+
+        <div class="category-image-container link-color">
+          <img class="category-thumbnail-image" src="<%= @playlist.image_url(:original) %>">
+          <div class="category-image-centered mid-text">
+            <%= @playlist.title %>
+          </div>
+        </div>
+
+      </div>
+
+      <% if current_user == @user %>
+        <div class="padding-top">
+          <div class="flex">
+            <div class="forty-eight">
+              <%= link_to edit_user_playlist_path(@user, @playlist) do %>
+                <div class="fake-button">
+                  Edit
+                </div>
+              <% end %>
+            </div>
+
+            <div class="forty-eight">
+              <%= link_to(user_playlist_path(@user, @playlist), data: { confirm: "Are you sure? This cannot be undone. Ever..." }, method: :delete) do %>
+                <div class="remove-button">
+                  Remove
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
     <div class="flex padding-bottom-large">
       <aside class="sidebar">
         <ul>
@@ -30,37 +67,7 @@
 
       <main class="video-content">
         <% if @videos.any? %>
-          <% @videos.each do |video| %>
-            <div class="video-border">
-              <div class="flex">
-                <div class="twenty-four">
-
-                  <%= link_to user_video_path(video.user, video) do %>
-                    <img class="thumbnail-image-feed-four" src="<%= video.image_url(:thumb) %>">
-                  <% end %>
-
-                </div>
-
-                <div class="seventy-five">
-
-                  <div class="padding-horizontal-mini padding-vertical-mini">
-                    <div class="mid-text">
-                      <%= link_to truncate(video.title, length: 50), user_video_path(video.user, video) %>
-                    </div>
-
-                    <div class="mini-text">
-                      <%= video.user.profile.display_name.presence || video.user.username %> posted <%= remove_unwanted_words time_ago_in_words(video.created_at) %> ago
-                    </div>
-
-                    <div>
-                      <%= truncate(video.description, length: 113) %>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          <% end %>
+          <span class="adds_index"><%= render 'users/partials/adds/adds_index' %></span>
         <% else %>
           You have not added any videos... yet. <%= link_to "Let's find some.", categories_path if @user == current_user %>
         <% end %>

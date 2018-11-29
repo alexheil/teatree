@@ -1,6 +1,8 @@
+$('.adds_index').html('<%=  escape_javascript(render :partial => 'users/partials/adds/adds_index') %>');
+$('.thumbnail-image-feed-four').show(0);
 $('#add-container').fadeOut(300);
 $('.back').fadeOut(300);
-$(".wrapper").removeClass("blur");
+$('.wrapper').removeClass('blur');
 $('.flash_js').fadeIn(300);
 $('.flash_js').html('<%=  escape_javascript(render :partial => 'partials/flash') %>');
 setTimeout(function() {
