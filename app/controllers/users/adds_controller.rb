@@ -6,6 +6,7 @@ class Users::AddsController < ApplicationController
     @user = User.friendly.find(params[:user_id])
     @video = Video.friendly.find(params[:video_id])
     @playlist = Playlist.friendly.find(params[:add][:playlist_id])
+    @videos = @playlist.videos
     @add = Add.new
     @add.video_id = @video.id
     @add.playlist_id = @playlist.id
